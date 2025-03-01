@@ -1,0 +1,3 @@
+com.ibonding.framework.security.config.IbondingSecurityAutoConfiguration
+com.ibonding.framework.security.config.IbondingWebSecurityConfigurerAdapter
+com.ibonding.framework.operatelog.config.IbondingOperateLogConfiguration

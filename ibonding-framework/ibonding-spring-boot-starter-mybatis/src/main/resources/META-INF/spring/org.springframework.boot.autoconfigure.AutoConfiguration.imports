@@ -1,0 +1,3 @@
+com.ibonding.framework.datasource.config.IbondingDataSourceAutoConfiguration
+com.ibonding.framework.mybatis.config.IbondingMybatisAutoConfiguration
+com.ibonding.framework.translate.config.IbondingTranslateAutoConfiguration

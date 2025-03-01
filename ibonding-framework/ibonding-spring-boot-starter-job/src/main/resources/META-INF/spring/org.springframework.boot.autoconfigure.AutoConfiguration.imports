@@ -1,0 +1,2 @@
+com.ibonding.framework.quartz.config.IbondingQuartzAutoConfiguration
+com.ibonding.framework.quartz.config.IbondingAsyncAutoConfiguration

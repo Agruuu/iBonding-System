@@ -1,0 +1,2 @@
+com.ibonding.framework.datapermission.config.IbondingDataPermissionAutoConfiguration
+com.ibonding.framework.datapermission.config.IbondingDeptDataPermissionAutoConfiguration

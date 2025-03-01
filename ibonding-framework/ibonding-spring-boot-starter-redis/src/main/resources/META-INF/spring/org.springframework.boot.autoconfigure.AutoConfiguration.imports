@@ -1,0 +1,2 @@
+com.ibonding.framework.redis.config.IbondingRedisAutoConfiguration
+com.ibonding.framework.redis.config.IbondingCacheAutoConfiguration

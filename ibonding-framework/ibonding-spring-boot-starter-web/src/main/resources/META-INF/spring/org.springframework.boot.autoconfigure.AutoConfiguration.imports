@@ -1,0 +1,6 @@
+com.ibonding.framework.apilog.config.IbondingApiLogAutoConfiguration
+com.ibonding.framework.jackson.config.IbondingJacksonAutoConfiguration
+com.ibonding.framework.swagger.config.IbondingSwaggerAutoConfiguration
+com.ibonding.framework.web.config.IbondingWebAutoConfiguration
+com.ibonding.framework.xss.config.IbondingXssAutoConfiguration
+com.ibonding.framework.banner.config.IbondingBannerAutoConfiguration

@@ -1,0 +1,4 @@
+com.ibonding.framework.idempotent.config.IbondingIdempotentConfiguration
+com.ibonding.framework.lock4j.config.IbondingLock4jConfiguration
+com.ibonding.framework.ratelimiter.config.IbondingRateLimiterConfiguration
+com.ibonding.framework.signature.config.IbondingApiSignatureAutoConfiguration
