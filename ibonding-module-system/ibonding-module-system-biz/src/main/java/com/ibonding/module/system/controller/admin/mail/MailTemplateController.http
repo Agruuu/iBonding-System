@@ -1,4 +1,4 @@
-### 请求 /system/mail-template/send-mail 接口 => 成功
+### Request /system/mail-template/send-mail API => Success
 POST {{baseUrl}}/system/mail-template/send-mail
 Authorization: Bearer {{token}}
 Content-Type: application/json

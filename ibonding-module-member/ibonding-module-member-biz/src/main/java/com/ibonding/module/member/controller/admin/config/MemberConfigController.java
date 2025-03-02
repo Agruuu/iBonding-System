@@ -17,7 +17,7 @@ import jakarta.validation.Valid;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 会员设置")
+@Tag(name = "Management Backend - Membership Settings")
 @RestController
 @RequestMapping("/member/config")
 @Validated
@@ -27,7 +27,7 @@ public class MemberConfigController {
     private MemberConfigService memberConfigService;
 
     @PutMapping("/save")
-    @Operation(summary = "保存会员配置")
+    @Operation(summary = "Save Membership Config")
     @PreAuthorize("@ss.hasPermission('member:config:save')")
     public CommonResult<Boolean> saveConfig(@Valid @RequestBody MemberConfigSaveReqVO saveReqVO) {
         memberConfigService.saveConfig(saveReqVO);
@@ -35,7 +35,7 @@ public class MemberConfigController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得会员配置")
+    @Operation(summary = "Get Membership Config")
     @PreAuthorize("@ss.hasPermission('member:config:query')")
     public CommonResult<MemberConfigRespVO> getConfig() {
         MemberConfigDO config = memberConfigService.getConfig();

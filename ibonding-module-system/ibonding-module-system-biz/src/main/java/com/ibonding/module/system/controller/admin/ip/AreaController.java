@@ -20,14 +20,14 @@ import java.util.List;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 地区")
+@Tag(name = "Management Backend - Area")
 @RestController
 @RequestMapping("/system/area")
 @Validated
 public class AreaController {
 
     @GetMapping("/tree")
-    @Operation(summary = "获得地区树")
+    @Operation(summary = "Get Area Tree")
     public CommonResult<List<AreaNodeRespVO>> getAreaTree() {
         Area area = AreaUtils.getArea(Area.ID_CHINA);
         Assert.notNull(area, "获取不到中国");
@@ -35,7 +35,7 @@ public class AreaController {
     }
 
     @GetMapping("/get-by-ip")
-    @Operation(summary = "获得 IP 对应的地区名")
+    @Operation(summary = "Get Area by IP")
     @Parameter(name = "ip", description = "IP", required = true)
     public CommonResult<String> getAreaByIp(@RequestParam("ip") String ip) {
         // 获得城市

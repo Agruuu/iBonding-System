@@ -27,7 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.module.infra.framework.file.core.utils.FileTypeUtils.writeAttachment;
 
-@Tag(name = "管理后台 - 文件存储")
+@Tag(name = "Management Backend - File Storage")
 @RestController
 @RequestMapping("/infra/file")
 @Validated
@@ -38,7 +38,7 @@ public class FileController {
     private FileService fileService;
 
     @PostMapping("/upload")
-    @Operation(summary = "上传文件", description = "模式一：后端上传文件")
+    @Operation(summary = "Upload File", description = "Mode One: Backend Upload File")
     public CommonResult<String> uploadFile(FileUploadReqVO uploadReqVO) throws Exception {
         MultipartFile file = uploadReqVO.getFile();
         String path = uploadReqVO.getPath();
@@ -46,19 +46,19 @@ public class FileController {
     }
 
     @GetMapping("/presigned-url")
-    @Operation(summary = "获取文件预签名地址", description = "模式二：前端上传文件：用于前端直接上传七牛、阿里云 OSS 等文件存储器")
+    @Operation(summary = "Get File Pre-signed URL", description = "Mode Two: Frontend Upload File: Used for the frontend to directly upload files to storage services such as Qiniu and Alibaba Cloud OSS.")
     public CommonResult<FilePresignedUrlRespVO> getFilePresignedUrl(@RequestParam("path") String path) throws Exception {
         return success(fileService.getFilePresignedUrl(path));
     }
 
     @PostMapping("/create")
-    @Operation(summary = "创建文件", description = "模式二：前端上传文件：配合 presigned-url 接口，记录上传了上传的文件")
+    @Operation(summary = "Create File", description = "Mode Two: Frontend Upload File: Cooperate with the presigned - url interface to record the uploaded files.")
     public CommonResult<Long> createFile(@Valid @RequestBody FileCreateReqVO createReqVO) {
         return success(fileService.createFile(createReqVO));
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除文件")
+    @Operation(summary = "Delete File")
     @Parameter(name = "id", description = "编号", required = true)
     @PreAuthorize("@ss.hasPermission('infra:file:delete')")
     public CommonResult<Boolean> deleteFile(@RequestParam("id") Long id) throws Exception {
@@ -68,7 +68,7 @@ public class FileController {
 
     @GetMapping("/{configId}/get/**")
     @PermitAll
-    @Operation(summary = "下载文件")
+    @Operation(summary = "Download File")
     @Parameter(name = "configId", description = "配置编号", required = true)
     public void getFileContent(HttpServletRequest request,
                                HttpServletResponse response,
@@ -92,7 +92,7 @@ public class FileController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得文件分页")
+    @Operation(summary = "Get File Pagination")
     @PreAuthorize("@ss.hasPermission('infra:file:query')")
     public CommonResult<PageResult<FileRespVO>> getFilePage(@Valid FilePageReqVO pageVO) {
         PageResult<FileDO> pageResult = fileService.getFilePage(pageVO);

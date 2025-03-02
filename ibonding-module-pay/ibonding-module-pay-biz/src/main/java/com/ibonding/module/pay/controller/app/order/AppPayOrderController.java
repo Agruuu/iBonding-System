@@ -30,7 +30,7 @@ import static com.ibonding.framework.common.util.servlet.ServletUtils.getClientI
 import static com.ibonding.framework.web.core.util.WebFrameworkUtils.getLoginUserId;
 import static com.ibonding.framework.web.core.util.WebFrameworkUtils.getLoginUserType;
 
-@Tag(name = "用户 APP - 支付订单")
+@Tag(name = "User APP - Payment Order")
 @RestController
 @RequestMapping("/pay/order")
 @Validated
@@ -41,7 +41,7 @@ public class AppPayOrderController {
     private PayOrderService payOrderService;
 
     @GetMapping("/get")
-    @Operation(summary = "获得支付订单")
+    @Operation(summary = "Get Payment Order")
     @Parameters({
             @Parameter(name = "id", description = "编号", required = true, example = "1024"),
             @Parameter(name = "sync", description = "是否同步", example = "true")
@@ -59,7 +59,7 @@ public class AppPayOrderController {
     }
 
     @PostMapping("/submit")
-    @Operation(summary = "提交支付订单")
+    @Operation(summary = "Submit Payment Order")
     public CommonResult<AppPayOrderSubmitRespVO> submitPayOrder(@RequestBody AppPayOrderSubmitReqVO reqVO) {
         // 1. 钱包支付事，需要额外传 user_id 和 user_type
         if (Objects.equals(reqVO.getChannelCode(), PayChannelEnum.WALLET.getCode())) {

@@ -29,7 +29,7 @@ import java.util.List;
 import static com.ibonding.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 定时任务日志")
+@Tag(name = "Management Backend - Job Log")
 @RestController
 @RequestMapping("/infra/job-log")
 @Validated
@@ -39,7 +39,7 @@ public class JobLogController {
     private JobLogService jobLogService;
 
     @GetMapping("/get")
-    @Operation(summary = "获得定时任务日志")
+    @Operation(summary = "Get Scheduled Task Log")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('infra:job:query')")
     public CommonResult<JobLogRespVO> getJobLog(@RequestParam("id") Long id) {
@@ -48,7 +48,7 @@ public class JobLogController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得定时任务日志分页")
+    @Operation(summary = "Get Scheduled Task Log Pagination")
     @PreAuthorize("@ss.hasPermission('infra:job:query')")
     public CommonResult<PageResult<JobLogRespVO>> getJobLogPage(@Valid JobLogPageReqVO pageVO) {
         PageResult<JobLogDO> pageResult = jobLogService.getJobLogPage(pageVO);
@@ -56,7 +56,7 @@ public class JobLogController {
     }
 
     @GetMapping("/export-excel")
-    @Operation(summary = "导出定时任务日志 Excel")
+    @Operation(summary = "Export Excel")
     @PreAuthorize("@ss.hasPermission('infra:job:export')")
     @ApiAccessLog(operateType = EXPORT)
     public void exportJobLogExcel(@Valid JobLogPageReqVO exportReqVO,

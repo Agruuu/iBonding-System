@@ -1,4 +1,4 @@
-### 请求 /login 接口 => 成功
+### Request /login API => Success
 POST {{appApi}}/member/auth/login
 Content-Type: application/json
 tenant-id: {{appTenantId}}
@@ -8,7 +8,7 @@ tenant-id: {{appTenantId}}
   "password": "admin123"
 }
 
-### 请求 /send-sms-code 接口 => 成功
+### Request /send-sms-code API => Success
 POST {{appApi}}/member/auth/send-sms-code
 Content-Type: application/json
 tenant-id: {{appTenantId}}
@@ -18,7 +18,7 @@ tenant-id: {{appTenantId}}
   "scene": 1
 }
 
-### 请求 /sms-login 接口 => 成功
+### Request /sms-login API => Success
 POST {{appApi}}/member/auth/sms-login
 Content-Type: application/json
 tenant-id: {{appTenantId}}
@@ -29,7 +29,7 @@ terminal: 30
   "code": 9999
 }
 
-### 请求 /social-login 接口 => 成功
+### Request /social-login API => Success
 POST {{appApi}}/member/auth/social-login
 Content-Type: application/json
 tenant-id: {{appTenantId}}
@@ -40,7 +40,7 @@ tenant-id: {{appTenantId}}
   "state": "default"
 }
 
-### 请求 /weixin-mini-app-login 接口 => 成功
+### Request /weixin-mini-app-login API => Success
 POST {{appApi}}/member/auth/weixin-mini-app-login
 Content-Type: application/json
 tenant-id: {{appTenantId}}
@@ -50,18 +50,18 @@ tenant-id: {{appTenantId}}
   "loginCode": "001frTkl21JUf94VGxol2hSlff1frTkR"
 }
 
-### 请求 /logout 接口 => 成功
+### Request /logout API => Success
 POST {{appApi}}/member/auth/logout
 Content-Type: application/json
 Authorization: Bearer c1b76bdaf2c146c581caa4d7fd81ee66
 tenant-id: {{appTenantId}}
 
-### 请求 /auth/refresh-token 接口 => 成功
+### Request /auth/refresh-token API => Success
 POST {{appApi}}/member/auth/refresh-token?refreshToken=bc43d929094849a28b3a69f6e6940d70
 Content-Type: application/json
 tenant-id: {{appTenantId}}
 
-### 请求 /auth/create-weixin-jsapi-signature 接口 => 成功
+### Request /auth/create-weixin-jsapi-signature API => Success
 POST {{appApi}}/member/auth/create-weixin-jsapi-signature?url=http://www.iocoder.cn
 Authorization: Bearer {{appToken}}
 tenant-id: {{appTenantId}}

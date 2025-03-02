@@ -1,4 +1,4 @@
-### 请求 /infra/file-config/create 接口 => 成功
+### Request the /infra/file-config/create interface => Success
 POST {{baseUrl}}/infra/file-config/create
 Content-Type: application/json
 tenant-id: {{adminTenantId}}
@@ -18,7 +18,7 @@ Authorization: Bearer {{token}}
   }
 }
 
-### 请求 /infra/file-config/update 接口 => 成功
+### Request the /infra/file-config/update interface => Success
 PUT {{baseUrl}}/infra/file-config/update
 Content-Type: application/json
 tenant-id: {{adminTenantId}}
@@ -38,7 +38,7 @@ Authorization: Bearer {{token}}
   }
 }
 
-### 请求 /infra/file-config/test 接口 => 成功
+### Request the /infra/file-config/test interface => Success
 GET {{baseUrl}}/infra/file-config/test?id=2
 Content-Type: application/json
 tenant-id: {{adminTenantId}}

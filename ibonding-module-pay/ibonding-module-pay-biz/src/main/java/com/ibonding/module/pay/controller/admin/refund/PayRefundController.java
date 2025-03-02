@@ -33,7 +33,7 @@ import static com.ibonding.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.common.util.collection.CollectionUtils.convertList;
 
-@Tag(name = "管理后台 - 退款订单")
+@Tag(name = "Management Backend - Refund Order")
 @RestController
 @RequestMapping("/pay/refund")
 @Validated
@@ -45,7 +45,7 @@ public class PayRefundController {
     private PayAppService appService;
 
     @GetMapping("/get")
-    @Operation(summary = "获得退款订单")
+    @Operation(summary = "Get Refund Order")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('pay:refund:query')")
     public CommonResult<PayRefundDetailsRespVO> getRefund(@RequestParam("id") Long id) {
@@ -60,7 +60,7 @@ public class PayRefundController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得退款订单分页")
+    @Operation(summary = "Get Refund Order Pagination")
     @PreAuthorize("@ss.hasPermission('pay:refund:query')")
     public CommonResult<PageResult<PayRefundPageItemRespVO>> getRefundPage(@Valid PayRefundPageReqVO pageVO) {
         PageResult<PayRefundDO> pageResult = refundService.getRefundPage(pageVO);
@@ -74,7 +74,7 @@ public class PayRefundController {
     }
 
     @GetMapping("/export-excel")
-    @Operation(summary = "导出退款订单 Excel")
+    @Operation(summary = "Export Excel")
     @PreAuthorize("@ss.hasPermission('pay:refund:export')")
     @ApiAccessLog(operateType = EXPORT)
     public void exportRefundExcel(@Valid PayRefundExportReqVO exportReqVO,

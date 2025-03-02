@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "用户 App - 文件存储")
+@Tag(name = "User App - File Storage")
 @RestController
 @RequestMapping("/infra/file")
 @Validated
@@ -29,7 +29,7 @@ public class AppFileController {
     private FileService fileService;
 
     @PostMapping("/upload")
-    @Operation(summary = "上传文件")
+    @Operation(summary = "Upload File")
     @PermitAll
     public CommonResult<String> uploadFile(AppFileUploadReqVO uploadReqVO) throws Exception {
         MultipartFile file = uploadReqVO.getFile();
@@ -38,14 +38,14 @@ public class AppFileController {
     }
 
     @GetMapping("/presigned-url")
-    @Operation(summary = "获取文件预签名地址", description = "模式二：前端上传文件：用于前端直接上传七牛、阿里云 OSS 等文件存储器")
+    @Operation(summary = "Get File Pre-signed URL", description = "Mode 2: Front-end File Upload: Used for the front-end to directly upload files to storage services such as Qiniu and Alibaba Cloud OSS.")
     @PermitAll
     public CommonResult<FilePresignedUrlRespVO> getFilePresignedUrl(@RequestParam("path") String path) throws Exception {
         return success(fileService.getFilePresignedUrl(path));
     }
 
     @PostMapping("/create")
-    @Operation(summary = "创建文件", description = "模式二：前端上传文件：配合 presigned-url 接口，记录上传了上传的文件")
+    @Operation(summary = "Create File", description = "Mode 2: Front - end File Upload: In conjunction with the presigned-url interface, record the uploaded files")
     @PermitAll
     public CommonResult<Long> createFile(@Valid @RequestBody FileCreateReqVO createReqVO) {
         return success(fileService.createFile(createReqVO));

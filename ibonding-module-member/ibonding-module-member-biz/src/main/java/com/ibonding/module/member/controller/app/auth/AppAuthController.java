@@ -26,7 +26,7 @@ import jakarta.validation.Valid;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "用户 APP - 认证")
+@Tag(name = "User APP - Authentication")
 @RestController
 @RequestMapping("/member/auth")
 @Validated
@@ -43,14 +43,14 @@ public class AppAuthController {
     private SecurityProperties securityProperties;
 
     @PostMapping("/login")
-    @Operation(summary = "使用手机 + 密码登录")
+    @Operation(summary = "Log in with Mobile Phone + Password")
     @PermitAll
     public CommonResult<AppAuthLoginRespVO> login(@RequestBody @Valid AppAuthLoginReqVO reqVO) {
         return success(authService.login(reqVO));
     }
 
     @PostMapping("/logout")
-    @Operation(summary = "登出系统")
+    @Operation(summary = "Log Out")
     @PermitAll
     public CommonResult<Boolean> logout(HttpServletRequest request) {
         String token = SecurityFrameworkUtils.obtainAuthorization(request,
@@ -62,7 +62,7 @@ public class AppAuthController {
     }
 
     @PostMapping("/refresh-token")
-    @Operation(summary = "刷新令牌")
+    @Operation(summary = "Refresh Token")
     @Parameter(name = "refreshToken", description = "刷新令牌", required = true)
     @PermitAll
     public CommonResult<AppAuthLoginRespVO> refreshToken(@RequestParam("refreshToken") String refreshToken) {
@@ -72,14 +72,14 @@ public class AppAuthController {
     // ========== 短信登录相关 ==========
 
     @PostMapping("/sms-login")
-    @Operation(summary = "使用手机 + 验证码登录")
+    @Operation(summary = "Log in with Mobile Phone + Verification Code")
     @PermitAll
     public CommonResult<AppAuthLoginRespVO> smsLogin(@RequestBody @Valid AppAuthSmsLoginReqVO reqVO) {
         return success(authService.smsLogin(reqVO));
     }
 
     @PostMapping("/send-sms-code")
-    @Operation(summary = "发送手机验证码")
+    @Operation(summary = "Send SMS Code")
     @PermitAll
     public CommonResult<Boolean> sendSmsCode(@RequestBody @Valid AppAuthSmsSendReqVO reqVO) {
         authService.sendSmsCode(getLoginUserId(), reqVO);
@@ -87,7 +87,7 @@ public class AppAuthController {
     }
 
     @PostMapping("/validate-sms-code")
-    @Operation(summary = "校验手机验证码")
+    @Operation(summary = "Validate SMS Code")
     @PermitAll
     public CommonResult<Boolean> validateSmsCode(@RequestBody @Valid AppAuthSmsValidateReqVO reqVO) {
         authService.validateSmsCode(getLoginUserId(), reqVO);
@@ -97,7 +97,7 @@ public class AppAuthController {
     // ========== 社交登录相关 ==========
 
     @GetMapping("/social-auth-redirect")
-    @Operation(summary = "社交授权的跳转")
+    @Operation(summary = "Social Authorization Redirection")
     @Parameters({
             @Parameter(name = "type", description = "社交类型", required = true),
             @Parameter(name = "redirectUri", description = "回调路径")
@@ -109,22 +109,22 @@ public class AppAuthController {
     }
 
     @PostMapping("/social-login")
-    @Operation(summary = "社交快捷登录，使用 code 授权码", description = "适合未登录的用户，但是社交账号已绑定用户")
+    @Operation(summary = "Social Quick Login using the Code Authorization Code", description = "It is suitable for users who are not logged in but have their social accounts already bound to the system")
     @PermitAll
     public CommonResult<AppAuthLoginRespVO> socialLogin(@RequestBody @Valid AppAuthSocialLoginReqVO reqVO) {
         return success(authService.socialLogin(reqVO));
     }
 
     @PostMapping("/weixin-mini-app-login")
-    @Operation(summary = "微信小程序的一键登录")
+    @Operation(summary = "One-click Login for WeChat Mini Program")
     @PermitAll
     public CommonResult<AppAuthLoginRespVO> weixinMiniAppLogin(@RequestBody @Valid AppAuthWeixinMiniAppLoginReqVO reqVO) {
         return success(authService.weixinMiniAppLogin(reqVO));
     }
 
     @PostMapping("/create-weixin-jsapi-signature")
-    @Operation(summary = "创建微信 JS SDK 初始化所需的签名",
-            description = "参考 https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html 文档")
+    @Operation(summary = "Create the signature required for initializing the WeChat JS SDK",
+            description = "Refer to the Documentation at https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html")
     @PermitAll
     public CommonResult<SocialWxJsapiSignatureRespDTO> createWeixinMpJsapiSignature(@RequestParam("url") String url) {
         SocialWxJsapiSignatureRespDTO signature = socialClientApi.createWxMpJsapiSignature(

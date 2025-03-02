@@ -1,4 +1,4 @@
-### 发送消息（段式）
+### Send Message (Segmented)
 POST {{baseUrl}}/ai/chat/message/send
 Content-Type: application/json
 Authorization: {{token}}
@@ -9,7 +9,7 @@ tenant-id: {{adminTenantId}}
   "content": "你是 OpenAI 么？"
 }
 
-### 发送消息（流式）
+### Send Message (Streaming)
 POST {{baseUrl}}/ai/chat/message/send-stream
 Content-Type: application/json
 Authorization: {{token}}
@@ -20,10 +20,10 @@ tenant-id: {{adminTenantId}}
   "content": "1+1=?"
 }
 
-### 获得指定对话的消息列表
+### Get the Message List of the Specified Conversation
 GET {{baseUrl}}/ai/chat/message/list-by-conversation-id?conversationId=1781604279872581649
 Authorization: {{token}}
 
-### 删除消息
+### Delete Message
 DELETE {{baseUrl}}/ai/chat/message/delete?id=50
 Authorization: {{token}}

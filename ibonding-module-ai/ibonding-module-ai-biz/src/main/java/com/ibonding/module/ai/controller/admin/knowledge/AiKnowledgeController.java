@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "管理后台 - AI 知识库")
+@Tag(name = "Management Backstage - AI Knowledge Base")
 @RestController
 @RequestMapping("/ai/knowledge")
 @Validated
@@ -29,20 +29,20 @@ public class AiKnowledgeController {
     private AiKnowledgeService knowledgeService;
 
     @GetMapping("/page")
-    @Operation(summary = "获取知识库分页")
+    @Operation(summary = "Get the Knowledge Base Pagination")
     public CommonResult<PageResult<AiKnowledgeRespVO>> getKnowledgePage(@Valid AiKnowledgePageReqVO pageReqVO) {
         PageResult<AiKnowledgeDO> pageResult = knowledgeService.getKnowledgePage(getLoginUserId(), pageReqVO);
         return success(BeanUtils.toBean(pageResult, AiKnowledgeRespVO.class));
     }
 
     @PostMapping("/create")
-    @Operation(summary = "创建知识库")
+    @Operation(summary = "Create Knowledge Base")
     public CommonResult<Long> createKnowledge(@RequestBody @Valid AiKnowledgeCreateReqVO createReqVO) {
         return success(knowledgeService.createKnowledge(createReqVO, getLoginUserId()));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新知识库")
+    @Operation(summary = "Update the Knowledge Base")
     public CommonResult<Boolean> updateKnowledge(@RequestBody @Valid AiKnowledgeUpdateReqVO updateReqVO) {
         knowledgeService.updateKnowledge(updateReqVO, getLoginUserId());
         return success(true);

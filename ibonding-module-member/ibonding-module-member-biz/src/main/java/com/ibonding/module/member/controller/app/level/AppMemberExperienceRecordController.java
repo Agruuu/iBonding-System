@@ -20,7 +20,7 @@ import jakarta.validation.Valid;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "用户 App - 会员经验记录")
+@Tag(name = "User App - Membership Experience Records")
 @RestController
 @RequestMapping("/member/experience-record")
 @Validated
@@ -30,7 +30,7 @@ public class AppMemberExperienceRecordController {
     private MemberExperienceRecordService experienceLogService;
 
     @GetMapping("/page")
-    @Operation(summary = "获得会员经验记录分页")
+    @Operation(summary = "Get Membership Experience Records Pagination")
     public CommonResult<PageResult<AppMemberExperienceRecordRespVO>> getExperienceRecordPage(
             @Valid PageParam pageParam) {
         PageResult<MemberExperienceRecordDO> pageResult = experienceLogService.getExperienceRecordPage(

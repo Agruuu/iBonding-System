@@ -1,4 +1,4 @@
-### 请求 /login 接口 => 成功
+### Request /login API => Success
 POST {{baseUrl}}/system/auth/login
 Content-Type: application/json
 tenant-id: {{adminTenantId}}
@@ -11,7 +11,7 @@ tag: iBonding.local
   "code": "1024"
 }
 
-### 请求 /login 接口 => 成功（无验证码)
+### Request /login API => Success (No Verification Code)
 POST {{baseUrl}}/system/auth/login
 Content-Type: application/json
 tenant-id: {{adminTenantId}}
@@ -21,12 +21,12 @@ tenant-id: {{adminTenantId}}
   "password": "admin123"
 }
 
-### 请求 /get-permission-info 接口 => 成功
+### Request /get-permission-info API => Success
 GET {{baseUrl}}/system/auth/get-permission-info
 Authorization: Bearer {{token}}
 tenant-id: {{adminTenantId}}
 
-### 请求 /list-menus 接口 => 成功
+### Request /list-menus API => Success
 GET {{baseUrl}}/system/list-menus
 Authorization: Bearer {{token}}
 #Authorization: Bearer a6aa7714a2e44c95aaa8a2c5adc2a67a

@@ -1,4 +1,4 @@
-### 获得地区树
+### Get Area Tree
 GET {{baseUrl}}/system/area/tree
 Authorization: Bearer {{token}}
 tenant-id: {{adminTenantId}}

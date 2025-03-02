@@ -28,7 +28,7 @@ import static com.ibonding.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static java.util.Collections.singleton;
 
-@Tag(name = "管理后台 - 角色")
+@Tag(name = "Management Backend - Role")
 @RestController
 @RequestMapping("/system/role")
 @Validated
@@ -38,14 +38,14 @@ public class RoleController {
     private RoleService roleService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建角色")
+    @Operation(summary = "Create Role")
     @PreAuthorize("@ss.hasPermission('system:role:create')")
     public CommonResult<Long> createRole(@Valid @RequestBody RoleSaveReqVO createReqVO) {
         return success(roleService.createRole(createReqVO, null));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "修改角色")
+    @Operation(summary = "Update Role")
     @PreAuthorize("@ss.hasPermission('system:role:update')")
     public CommonResult<Boolean> updateRole(@Valid @RequestBody RoleSaveReqVO updateReqVO) {
         roleService.updateRole(updateReqVO);
@@ -53,7 +53,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除角色")
+    @Operation(summary = "Delete Role")
     @Parameter(name = "id", description = "角色编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:role:delete')")
     public CommonResult<Boolean> deleteRole(@RequestParam("id") Long id) {
@@ -62,7 +62,7 @@ public class RoleController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得角色信息")
+    @Operation(summary = "Get Role")
     @PreAuthorize("@ss.hasPermission('system:role:query')")
     public CommonResult<RoleRespVO> getRole(@RequestParam("id") Long id) {
         RoleDO role = roleService.getRole(id);
@@ -70,7 +70,7 @@ public class RoleController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得角色分页")
+    @Operation(summary = "Get Role Pagination")
     @PreAuthorize("@ss.hasPermission('system:role:query')")
     public CommonResult<PageResult<RoleRespVO>> getRolePage(RolePageReqVO pageReqVO) {
         PageResult<RoleDO> pageResult = roleService.getRolePage(pageReqVO);
@@ -78,7 +78,7 @@ public class RoleController {
     }
 
     @GetMapping({"/list-all-simple", "/simple-list"})
-    @Operation(summary = "获取角色精简信息列表", description = "只包含被开启的角色，主要用于前端的下拉选项")
+    @Operation(summary = "Get Simple Role List", description = "Only include the enabled roles, mainly used for the dropdown options on the front-end")
     public CommonResult<List<RoleRespVO>> getSimpleRoleList() {
         List<RoleDO> list = roleService.getRoleListByStatus(singleton(CommonStatusEnum.ENABLE.getStatus()));
         list.sort(Comparator.comparing(RoleDO::getSort));
@@ -86,7 +86,7 @@ public class RoleController {
     }
 
     @GetMapping("/export-excel")
-    @Operation(summary = "导出角色 Excel")
+    @Operation(summary = "Export Excel")
     @ApiAccessLog(operateType = EXPORT)
     @PreAuthorize("@ss.hasPermission('system:role:export')")
     public void export(HttpServletResponse response, @Validated RolePageReqVO exportReqVO) throws IOException {

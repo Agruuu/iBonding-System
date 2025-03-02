@@ -28,7 +28,7 @@ import java.util.List;
 import static com.ibonding.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 字典类型")
+@Tag(name = "Management Backend - Dictionary Type")
 @RestController
 @RequestMapping("/system/dict-type")
 @Validated
@@ -38,7 +38,7 @@ public class DictTypeController {
     private DictTypeService dictTypeService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建字典类型")
+    @Operation(summary = "Create Dictionary Type")
     @PreAuthorize("@ss.hasPermission('system:dict:create')")
     public CommonResult<Long> createDictType(@Valid @RequestBody DictTypeSaveReqVO createReqVO) {
         Long dictTypeId = dictTypeService.createDictType(createReqVO);
@@ -46,7 +46,7 @@ public class DictTypeController {
     }
 
     @PutMapping("/update")
-    @Operation(summary = "修改字典类型")
+    @Operation(summary = "Update Dictionary Type")
     @PreAuthorize("@ss.hasPermission('system:dict:update')")
     public CommonResult<Boolean> updateDictType(@Valid @RequestBody DictTypeSaveReqVO updateReqVO) {
         dictTypeService.updateDictType(updateReqVO);
@@ -54,7 +54,7 @@ public class DictTypeController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除字典类型")
+    @Operation(summary = "Delete Dictionary Type")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:dict:delete')")
     public CommonResult<Boolean> deleteDictType(Long id) {
@@ -63,14 +63,14 @@ public class DictTypeController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得字典类型的分页列表")
+    @Operation(summary = "Get Dictionary Type Pagination")
     @PreAuthorize("@ss.hasPermission('system:dict:query')")
     public CommonResult<PageResult<DictTypeRespVO>> pageDictTypes(@Valid DictTypePageReqVO pageReqVO) {
         PageResult<DictTypeDO> pageResult = dictTypeService.getDictTypePage(pageReqVO);
         return success(BeanUtils.toBean(pageResult, DictTypeRespVO.class));
     }
 
-    @Operation(summary = "/查询字典类型详细")
+    @Operation(summary = "Get Dictionary Type")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @GetMapping(value = "/get")
     @PreAuthorize("@ss.hasPermission('system:dict:query')")
@@ -80,14 +80,14 @@ public class DictTypeController {
     }
 
     @GetMapping(value = {"/list-all-simple", "simple-list"})
-    @Operation(summary = "获得全部字典类型列表", description = "包括开启 + 禁用的字典类型，主要用于前端的下拉选项")
+    @Operation(summary = "Get Simple Dictionary Type List", description = "Include both enabled and disabled dictionary types, mainly used for the dropdown options on the front-end")
     // 无需添加权限认证，因为前端全局都需要
     public CommonResult<List<DictTypeSimpleRespVO>> getSimpleDictTypeList() {
         List<DictTypeDO> list = dictTypeService.getDictTypeList();
         return success(BeanUtils.toBean(list, DictTypeSimpleRespVO.class));
     }
 
-    @Operation(summary = "导出数据类型")
+    @Operation(summary = "Export")
     @GetMapping("/export")
     @PreAuthorize("@ss.hasPermission('system:dict:query')")
     @ApiAccessLog(operateType = EXPORT)

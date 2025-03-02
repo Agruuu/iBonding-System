@@ -1,4 +1,4 @@
-### 请求 /system/social-client/send-subscribe-message 接口 => 发送测试订阅消息
+### Request /system/social-client/send-subscribe-message API => Send a test subscription message
 POST {{baseUrl}}/system/social-client/send-subscribe-message
 Authorization: Bearer {{token}}
 Content-Type: application/json

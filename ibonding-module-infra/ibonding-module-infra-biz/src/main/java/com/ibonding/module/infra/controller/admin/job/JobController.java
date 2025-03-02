@@ -32,7 +32,7 @@ import java.util.List;
 import static com.ibonding.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 定时任务")
+@Tag(name = "Management Backend - Scheduled Task")
 @RestController
 @RequestMapping("/infra/job")
 @Validated
@@ -42,7 +42,7 @@ public class JobController {
     private JobService jobService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建定时任务")
+    @Operation(summary = "Create Scheduled Task")
     @PreAuthorize("@ss.hasPermission('infra:job:create')")
     public CommonResult<Long> createJob(@Valid @RequestBody JobSaveReqVO createReqVO)
             throws SchedulerException {
@@ -50,7 +50,7 @@ public class JobController {
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新定时任务")
+    @Operation(summary = "Update Scheduled Task")
     @PreAuthorize("@ss.hasPermission('infra:job:update')")
     public CommonResult<Boolean> updateJob(@Valid @RequestBody JobSaveReqVO updateReqVO)
             throws SchedulerException {
@@ -59,7 +59,7 @@ public class JobController {
     }
 
     @PutMapping("/update-status")
-    @Operation(summary = "更新定时任务的状态")
+    @Operation(summary = "Update Scheduled Task Status")
     @Parameters({
             @Parameter(name = "id", description = "编号", required = true, example = "1024"),
             @Parameter(name = "status", description = "状态", required = true, example = "1"),
@@ -72,7 +72,7 @@ public class JobController {
     }
 
 	@DeleteMapping("/delete")
-    @Operation(summary = "删除定时任务")
+    @Operation(summary = "Delete Scheduled Task")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
 	@PreAuthorize("@ss.hasPermission('infra:job:delete')")
     public CommonResult<Boolean> deleteJob(@RequestParam("id") Long id)
@@ -82,7 +82,7 @@ public class JobController {
     }
 
     @PutMapping("/trigger")
-    @Operation(summary = "触发定时任务")
+    @Operation(summary = "Trigger Scheduled Task")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('infra:job:trigger')")
     public CommonResult<Boolean> triggerJob(@RequestParam("id") Long id) throws SchedulerException {
@@ -91,7 +91,7 @@ public class JobController {
     }
 
     @PostMapping("/sync")
-    @Operation(summary = "同步定时任务")
+    @Operation(summary = "Sync Scheduled Task")
     @PreAuthorize("@ss.hasPermission('infra:job:create')")
     public CommonResult<Boolean> syncJob() throws SchedulerException {
         jobService.syncJob();
@@ -99,7 +99,7 @@ public class JobController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得定时任务")
+    @Operation(summary = "Get Scheduled Task")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('infra:job:query')")
     public CommonResult<JobRespVO> getJob(@RequestParam("id") Long id) {
@@ -108,7 +108,7 @@ public class JobController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得定时任务分页")
+    @Operation(summary = "Get Scheduled Task Pagination")
     @PreAuthorize("@ss.hasPermission('infra:job:query')")
     public CommonResult<PageResult<JobRespVO>> getJobPage(@Valid JobPageReqVO pageVO) {
         PageResult<JobDO> pageResult = jobService.getJobPage(pageVO);
@@ -116,7 +116,7 @@ public class JobController {
     }
 
     @GetMapping("/export-excel")
-    @Operation(summary = "导出定时任务 Excel")
+    @Operation(summary = "Export Scheduled Task Excel")
     @PreAuthorize("@ss.hasPermission('infra:job:export')")
     @ApiAccessLog(operateType = EXPORT)
     public void exportJobExcel(@Valid JobPageReqVO exportReqVO,
@@ -129,7 +129,7 @@ public class JobController {
     }
 
     @GetMapping("/get_next_times")
-    @Operation(summary = "获得定时任务的下 n 次执行时间")
+    @Operation(summary = "Get the Next N Execution Times of the Scheduled Task")
     @Parameters({
             @Parameter(name = "id", description = "编号", required = true, example = "1024"),
             @Parameter(name = "count", description = "数量", example = "5")

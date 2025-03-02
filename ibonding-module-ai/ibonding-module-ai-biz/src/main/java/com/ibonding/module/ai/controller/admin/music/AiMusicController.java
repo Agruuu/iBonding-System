@@ -20,7 +20,7 @@ import java.util.List;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "管理后台 - AI 音乐")
+@Tag(name = "Management Backend - AI Music")
 @RestController
 @RequestMapping("/ai/music")
 public class AiMusicController {
@@ -29,19 +29,19 @@ public class AiMusicController {
     private AiMusicService musicService;
 
     @GetMapping("/my-page")
-    @Operation(summary = "获得【我的】音乐分页")
+    @Operation(summary = "Get [My] Music Pagination")
     public CommonResult<PageResult<AiMusicRespVO>> getMusicMyPage(@Valid AiMusicPageReqVO pageReqVO) {
         PageResult<AiMusicDO> pageResult = musicService.getMusicMyPage(pageReqVO, getLoginUserId());
         return success(BeanUtils.toBean(pageResult, AiMusicRespVO.class));
     }
 
     @PostMapping("/generate")
-    @Operation(summary = "音乐生成")
+    @Operation(summary = "Generate Music")
     public CommonResult<List<Long>> generateMusic(@RequestBody @Valid AiSunoGenerateReqVO reqVO) {
         return success(musicService.generateMusic(getLoginUserId(), reqVO));
     }
 
-    @Operation(summary = "删除【我的】音乐记录")
+    @Operation(summary = "Delete [My] Music Records")
     @DeleteMapping("/delete-my")
     @Parameter(name = "id", required = true, description = "音乐编号", example = "1024")
     public CommonResult<Boolean> deleteMusicMy(@RequestParam("id") Long id) {
@@ -50,7 +50,7 @@ public class AiMusicController {
     }
 
     @GetMapping("/get-my")
-    @Operation(summary = "获取【我的】音乐")
+    @Operation(summary = "Get [My] Music")
     @Parameter(name = "id", required = true, description = "音乐编号", example = "1024")
     public CommonResult<AiMusicRespVO> getMusicMy(@RequestParam("id") Long id) {
         AiMusicDO music = musicService.getMusic(id);
@@ -61,17 +61,17 @@ public class AiMusicController {
     }
 
     @PostMapping("/update-my")
-    @Operation(summary = "修改【我的】音乐 目前只支持修改标题")
+    @Operation(summary = "Update [My] Music. Currently, only title modification is supported.")
     @Parameter(name = "title", required = true, description = "音乐名称", example = "夜空中最亮的星")
     public CommonResult<Boolean> updateMy(AiMusicUpdateMyReqVO updateReqVO) {
         musicService.updateMyMusic(updateReqVO, getLoginUserId());
         return success(true);
     }
 
-    // ================ 音乐管理 ================
+    // ================ Music Management ================
 
     @GetMapping("/page")
-    @Operation(summary = "获得音乐分页")
+    @Operation(summary = "Get Music Pagination")
     @PreAuthorize("@ss.hasPermission('ai:music:query')")
     public CommonResult<PageResult<AiMusicRespVO>> getMusicPage(@Valid AiMusicPageReqVO pageReqVO) {
         PageResult<AiMusicDO> pageResult = musicService.getMusicPage(pageReqVO);
@@ -79,7 +79,7 @@ public class AiMusicController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除音乐")
+    @Operation(summary = "Delete Music")
     @Parameter(name = "id", description = "编号", required = true)
     @PreAuthorize("@ss.hasPermission('ai:music:delete')")
     public CommonResult<Boolean> deleteMusic(@RequestParam("id") Long id) {
@@ -88,7 +88,7 @@ public class AiMusicController {
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新音乐")
+    @Operation(summary = "Update Music")
     @PreAuthorize("@ss.hasPermission('ai:music:update')")
     public CommonResult<Boolean> updateMusic(@Valid @RequestBody AiMusicUpdateReqVO updateReqVO) {
         musicService.updateMusic(updateReqVO);

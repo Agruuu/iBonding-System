@@ -20,7 +20,7 @@ import java.util.List;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
 
-@Tag(name = "管理后台 - 用户分组")
+@Tag(name = "Management Backend - User Group")
 @RestController
 @RequestMapping("/member/group")
 @Validated
@@ -30,14 +30,14 @@ public class MemberGroupController {
     private MemberGroupService groupService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建用户分组")
+    @Operation(summary = "Create User Group")
     @PreAuthorize("@ss.hasPermission('member:group:create')")
     public CommonResult<Long> createGroup(@Valid @RequestBody MemberGroupCreateReqVO createReqVO) {
         return success(groupService.createGroup(createReqVO));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新用户分组")
+    @Operation(summary = "Update User Group")
     @PreAuthorize("@ss.hasPermission('member:group:update')")
     public CommonResult<Boolean> updateGroup(@Valid @RequestBody MemberGroupUpdateReqVO updateReqVO) {
         groupService.updateGroup(updateReqVO);
@@ -45,7 +45,7 @@ public class MemberGroupController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除用户分组")
+    @Operation(summary = "Delete User Group")
     @Parameter(name = "id", description = "编号", required = true)
     @PreAuthorize("@ss.hasPermission('member:group:delete')")
     public CommonResult<Boolean> deleteGroup(@RequestParam("id") Long id) {
@@ -54,7 +54,7 @@ public class MemberGroupController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得用户分组")
+    @Operation(summary = "Get User Group")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('member:group:query')")
     public CommonResult<MemberGroupRespVO> getGroup(@RequestParam("id") Long id) {
@@ -63,7 +63,7 @@ public class MemberGroupController {
     }
 
     @GetMapping("/list-all-simple")
-    @Operation(summary = "获取会员分组精简信息列表", description = "只包含被开启的会员分组，主要用于前端的下拉选项")
+    @Operation(summary = "Get the List of Simplified Membership Group Information", description = "Get the list of simplified information of enabled membership groups, mainly used for dropdown options on the front-end")
     public CommonResult<List<MemberGroupSimpleRespVO>> getSimpleGroupList() {
         // 获用户列表，只要开启状态的
         List<MemberGroupDO> list = groupService.getEnableGroupList();
@@ -71,7 +71,7 @@ public class MemberGroupController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得用户分组分页")
+    @Operation(summary = "Get User Group Pagination")
     @PreAuthorize("@ss.hasPermission('member:group:query')")
     public CommonResult<PageResult<MemberGroupRespVO>> getGroupPage(@Valid MemberGroupPageReqVO pageVO) {
         PageResult<MemberGroupDO> pageResult = groupService.getGroupPage(pageVO);

@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 通知公告")
+@Tag(name = "Management Backend - Notice")
 @RestController
 @RequestMapping("/system/notice")
 @Validated
@@ -36,7 +36,7 @@ public class NoticeController {
     private WebSocketSenderApi webSocketSenderApi;
 
     @PostMapping("/create")
-    @Operation(summary = "创建通知公告")
+    @Operation(summary = "Create Notice")
     @PreAuthorize("@ss.hasPermission('system:notice:create')")
     public CommonResult<Long> createNotice(@Valid @RequestBody NoticeSaveReqVO createReqVO) {
         Long noticeId = noticeService.createNotice(createReqVO);
@@ -44,7 +44,7 @@ public class NoticeController {
     }
 
     @PutMapping("/update")
-    @Operation(summary = "修改通知公告")
+    @Operation(summary = "Update Notice")
     @PreAuthorize("@ss.hasPermission('system:notice:update')")
     public CommonResult<Boolean> updateNotice(@Valid @RequestBody NoticeSaveReqVO updateReqVO) {
         noticeService.updateNotice(updateReqVO);
@@ -52,7 +52,7 @@ public class NoticeController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除通知公告")
+    @Operation(summary = "Delete Notice")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:notice:delete')")
     public CommonResult<Boolean> deleteNotice(@RequestParam("id") Long id) {
@@ -61,7 +61,7 @@ public class NoticeController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获取通知公告列表")
+    @Operation(summary = "Get Notice Pagination")
     @PreAuthorize("@ss.hasPermission('system:notice:query')")
     public CommonResult<PageResult<NoticeRespVO>> getNoticePage(@Validated NoticePageReqVO pageReqVO) {
         PageResult<NoticeDO> pageResult = noticeService.getNoticePage(pageReqVO);
@@ -69,7 +69,7 @@ public class NoticeController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得通知公告")
+    @Operation(summary = "Get Notice")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:notice:query')")
     public CommonResult<NoticeRespVO> getNotice(@RequestParam("id") Long id) {
@@ -78,7 +78,7 @@ public class NoticeController {
     }
 
     @PostMapping("/push")
-    @Operation(summary = "推送通知公告", description = "只发送给 websocket 连接在线的用户")
+    @Operation(summary = "Push Notice", description = "Only send to users who are online via WebSocket connections")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:notice:update')")
     public CommonResult<Boolean> push(@RequestParam("id") Long id) {

@@ -36,7 +36,7 @@ import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.common.util.collection.CollectionUtils.convertSet;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "管理后台 - 聊天消息")
+@Tag(name = "Management Backend - Chat Messages")
 @RestController
 @RequestMapping("/ai/chat/message")
 @Slf4j
@@ -49,20 +49,20 @@ public class AiChatMessageController {
     @Resource
     private AiChatRoleService chatRoleService;
 
-    @Operation(summary = "发送消息（段式）", description = "一次性返回，响应较慢")
+    @Operation(summary = "Send Messages (Segmented)", description = "Return All At Once, Slow Response")
     @PostMapping("/send")
     public CommonResult<AiChatMessageSendRespVO> sendMessage(@Valid @RequestBody AiChatMessageSendReqVO sendReqVO) {
         return success(chatMessageService.sendMessage(sendReqVO, getLoginUserId()));
     }
 
-    @Operation(summary = "发送消息（流式）", description = "流式返回，响应较快")
+    @Operation(summary = "Send Messages (Streaming)", description = "Streaming Return, Faster Response")
     @PostMapping(value = "/send-stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     @PermitAll // 解决 SSE 最终响应的时候，会被 Access Denied 拦截的问题
     public Flux<CommonResult<AiChatMessageSendRespVO>> sendChatMessageStream(@Valid @RequestBody AiChatMessageSendReqVO sendReqVO) {
         return chatMessageService.sendChatMessageStream(sendReqVO, getLoginUserId());
     }
 
-    @Operation(summary = "获得指定对话的消息列表")
+    @Operation(summary = "Get the Message List of the Specified Conversation")
     @GetMapping("/list-by-conversation-id")
     @Parameter(name = "conversationId", required = true, description = "对话编号", example = "1024")
     public CommonResult<List<AiChatMessageRespVO>> getChatMessageListByConversationId(
@@ -75,7 +75,7 @@ public class AiChatMessageController {
         return success(BeanUtils.toBean(messageList, AiChatMessageRespVO.class));
     }
 
-    @Operation(summary = "删除消息")
+    @Operation(summary = "Delete Message")
     @DeleteMapping("/delete")
     @Parameter(name = "id", required = true, description = "消息编号", example = "1024")
     public CommonResult<Boolean> deleteChatMessage(@RequestParam("id") Long id) {
@@ -83,7 +83,7 @@ public class AiChatMessageController {
         return success(true);
     }
 
-    @Operation(summary = "删除指定对话的消息")
+    @Operation(summary = "Delete Messages of the Specified Conversation")
     @DeleteMapping("/delete-by-conversation-id")
     @Parameter(name = "conversationId", required = true, description = "对话编号", example = "1024")
     public CommonResult<Boolean> deleteChatMessageByConversationId(@RequestParam("conversationId") Long conversationId) {
@@ -94,7 +94,7 @@ public class AiChatMessageController {
     // ========== 对话管理 ==========
 
     @GetMapping("/page")
-    @Operation(summary = "获得消息分页", description = "用于【对话管理】菜单")
+    @Operation(summary = "Get Paginated Message", description = "For the [Conversation Management] Menu")
     @PreAuthorize("@ss.hasPermission('ai:chat-conversation:query')")
     public CommonResult<PageResult<AiChatMessageRespVO>> getChatMessagePage(AiChatMessagePageReqVO pageReqVO) {
         PageResult<AiChatMessageDO> pageResult = chatMessageService.getChatMessagePage(pageReqVO);
@@ -108,7 +108,7 @@ public class AiChatMessageController {
                 respVO -> MapUtils.findAndThen(roleMap, respVO.getRoleId(), role -> respVO.setRoleName(role.getName()))));
     }
 
-    @Operation(summary = "管理员删除消息")
+    @Operation(summary = "Administrator Delete Message")
     @DeleteMapping("/delete-by-admin")
     @Parameter(name = "id", required = true, description = "消息编号", example = "1024")
     @PreAuthorize("@ss.hasPermission('ai:chat-message:delete')")

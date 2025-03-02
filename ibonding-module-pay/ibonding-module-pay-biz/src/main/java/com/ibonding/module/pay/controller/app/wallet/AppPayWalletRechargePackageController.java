@@ -20,7 +20,7 @@ import java.util.List;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "用户 APP - 钱包充值套餐")
+@Tag(name = "User APP - Wallet Recharge Package")
 @RestController
 @RequestMapping("/pay/wallet-recharge-package")
 @Validated
@@ -31,7 +31,7 @@ public class AppPayWalletRechargePackageController {
     private PayWalletRechargePackageService walletRechargePackageService;
 
     @GetMapping("/list")
-    @Operation(summary = "获得钱包充值套餐列表")
+    @Operation(summary = "Get Wallet Recharge Package List")
     public CommonResult<List<AppPayWalletPackageRespVO>> getWalletRechargePackageList() {
         List<PayWalletRechargePackageDO> list = walletRechargePackageService.getWalletRechargePackageList(
                 CommonStatusEnum.ENABLE.getStatus());

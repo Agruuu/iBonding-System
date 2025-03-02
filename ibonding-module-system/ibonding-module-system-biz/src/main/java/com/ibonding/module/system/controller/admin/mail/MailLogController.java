@@ -21,7 +21,7 @@ import jakarta.validation.Valid;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 邮件日志")
+@Tag(name = "Management Backend - Email Log")
 @RestController
 @RequestMapping("/system/mail-log")
 public class MailLogController {
@@ -30,7 +30,7 @@ public class MailLogController {
     private MailLogService mailLogService;
 
     @GetMapping("/page")
-    @Operation(summary = "获得邮箱日志分页")
+    @Operation(summary = "Get Email Log Pagination")
     @PreAuthorize("@ss.hasPermission('system:mail-log:query')")
     public CommonResult<PageResult<MailLogRespVO>> getMailLogPage(@Valid MailLogPageReqVO pageVO) {
         PageResult<MailLogDO> pageResult = mailLogService.getMailLogPage(pageVO);
@@ -38,7 +38,7 @@ public class MailLogController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得邮箱日志")
+    @Operation(summary = "Get Email Log")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:mail-log:query')")
     public CommonResult<MailLogRespVO> getMailTemplate(@RequestParam("id") Long id) {

@@ -51,7 +51,7 @@ import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.common.util.collection.CollectionUtils.convertSet;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "管理后台 - 认证")
+@Tag(name = "Management Backend - Authentication")
 @RestController
 @RequestMapping("/system/auth")
 @Validated
@@ -76,14 +76,14 @@ public class AuthController {
 
     @PostMapping("/login")
     @PermitAll
-    @Operation(summary = "使用账号密码登录")
+    @Operation(summary = "Log in with Account and Password")
     public CommonResult<AuthLoginRespVO> login(@RequestBody @Valid AuthLoginReqVO reqVO) {
         return success(authService.login(reqVO));
     }
 
     @PostMapping("/logout")
     @PermitAll
-    @Operation(summary = "登出系统")
+    @Operation(summary = "Logout")
     public CommonResult<Boolean> logout(HttpServletRequest request) {
         String token = SecurityFrameworkUtils.obtainAuthorization(request,
                 securityProperties.getTokenHeader(), securityProperties.getTokenParameter());
@@ -95,14 +95,14 @@ public class AuthController {
 
     @PostMapping("/refresh-token")
     @PermitAll
-    @Operation(summary = "刷新令牌")
+    @Operation(summary = "Refresh Token")
     @Parameter(name = "refreshToken", description = "刷新令牌", required = true)
     public CommonResult<AuthLoginRespVO> refreshToken(@RequestParam("refreshToken") String refreshToken) {
         return success(authService.refreshToken(refreshToken));
     }
 
     @GetMapping("/get-permission-info")
-    @Operation(summary = "获取登录用户的权限信息")
+    @Operation(summary = "Get Permission Info of the Logged-in User")
     public CommonResult<AuthPermissionInfoRespVO> getPermissionInfo() {
         // 1.1 获得用户信息
         AdminUserDO user = userService.getUser(getLoginUserId());
@@ -129,7 +129,7 @@ public class AuthController {
 
     @PostMapping("/register")
     @PermitAll
-    @Operation(summary = "注册用户")
+    @Operation(summary = "Register")
     public CommonResult<AuthLoginRespVO> register(@RequestBody @Valid AuthRegisterReqVO registerReqVO) {
         return success(authService.register(registerReqVO));
     }
@@ -138,14 +138,14 @@ public class AuthController {
 
     @PostMapping("/sms-login")
     @PermitAll
-    @Operation(summary = "使用短信验证码登录")
+    @Operation(summary = "Log in with SMS Code")
     public CommonResult<AuthLoginRespVO> smsLogin(@RequestBody @Valid AuthSmsLoginReqVO reqVO) {
         return success(authService.smsLogin(reqVO));
     }
 
     @PostMapping("/send-sms-code")
     @PermitAll
-    @Operation(summary = "发送手机验证码")
+    @Operation(summary = "Send Login SMS Code")
     public CommonResult<Boolean> sendLoginSmsCode(@RequestBody @Valid AuthSmsSendReqVO reqVO) {
         authService.sendSmsCode(reqVO);
         return success(true);
@@ -153,7 +153,7 @@ public class AuthController {
 
     @PostMapping("/reset-password")
     @PermitAll
-    @Operation(summary = "重置密码")
+    @Operation(summary = "Reset Password")
     public CommonResult<Boolean> resetPassword(@RequestBody @Valid AuthResetPasswordReqVO reqVO) {
         authService.resetPassword(reqVO);
         return success(true);
@@ -163,7 +163,7 @@ public class AuthController {
 
     @GetMapping("/social-auth-redirect")
     @PermitAll
-    @Operation(summary = "社交授权的跳转")
+    @Operation(summary = "Redirection for Social Authorization")
     @Parameters({
             @Parameter(name = "type", description = "社交类型", required = true),
             @Parameter(name = "redirectUri", description = "回调路径")
@@ -176,7 +176,7 @@ public class AuthController {
 
     @PostMapping("/social-login")
     @PermitAll
-    @Operation(summary = "社交快捷登录，使用 code 授权码", description = "适合未登录的用户，但是社交账号已绑定用户")
+    @Operation(summary = "Social Quick Login with Authorization Code", description = "Suitable for Unlogged - in Users Whose Social Accounts Are Already Linked")
     public CommonResult<AuthLoginRespVO> socialQuickLogin(@RequestBody @Valid AuthSocialLoginReqVO reqVO) {
         return success(authService.socialLogin(reqVO));
     }

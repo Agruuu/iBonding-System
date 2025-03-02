@@ -27,7 +27,7 @@ import java.util.List;
 import static com.ibonding.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - API 访问日志")
+@Tag(name = "Management Backend - API Access Log")
 @RestController
 @RequestMapping("/infra/api-access-log")
 @Validated
@@ -37,7 +37,7 @@ public class ApiAccessLogController {
     private ApiAccessLogService apiAccessLogService;
 
     @GetMapping("/page")
-    @Operation(summary = "获得API 访问日志分页")
+    @Operation(summary = "Get API Access Log Pagination")
     @PreAuthorize("@ss.hasPermission('infra:api-access-log:query')")
     public CommonResult<PageResult<ApiAccessLogRespVO>> getApiAccessLogPage(@Valid ApiAccessLogPageReqVO pageReqVO) {
         PageResult<ApiAccessLogDO> pageResult = apiAccessLogService.getApiAccessLogPage(pageReqVO);
@@ -45,7 +45,7 @@ public class ApiAccessLogController {
     }
 
     @GetMapping("/export-excel")
-    @Operation(summary = "导出API 访问日志 Excel")
+    @Operation(summary = "Export Excel")
     @PreAuthorize("@ss.hasPermission('infra:api-access-log:export')")
     @ApiAccessLog(operateType = EXPORT)
     public void exportApiAccessLogExcel(@Valid ApiAccessLogPageReqVO exportReqVO,

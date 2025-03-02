@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-@Schema(description = "管理后台 - AI 聊天对话更新【我的】 Request VO")
+@Schema(description = "Management backend - Request VO for Updating AI Chat Conversations [Mine]")
 @Data
 public class AiChatConversationUpdateMyReqVO {
 

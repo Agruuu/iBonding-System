@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "用户 App - 签到记录")
+@Tag(name = "User App - Sign-in Records")
 @RestController
 @RequestMapping("/member/sign-in/record")
 @Validated
@@ -30,20 +30,20 @@ public class AppMemberSignInRecordController {
     private MemberSignInRecordService signInRecordService;
 
     @GetMapping("/get-summary")
-    @Operation(summary = "获得个人签到统计")
+    @Operation(summary = "Get Sign-in Record Summary")
     public CommonResult<AppMemberSignInRecordSummaryRespVO> getSignInRecordSummary() {
         return success(signInRecordService.getSignInRecordSummary(getLoginUserId()));
     }
 
     @PostMapping("/create")
-    @Operation(summary = "签到")
+    @Operation(summary = "Sign-in")
     public CommonResult<AppMemberSignInRecordRespVO> createSignInRecord() {
         MemberSignInRecordDO recordDO = signInRecordService.createSignRecord(getLoginUserId());
         return success(MemberSignInRecordConvert.INSTANCE.coverRecordToAppRecordVo(recordDO));
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得签到记录分页")
+    @Operation(summary = "Get Sign-in Records Pagination")
     public CommonResult<PageResult<AppMemberSignInRecordRespVO>> getSignRecordPage(PageParam pageParam) {
         PageResult<MemberSignInRecordDO> pageResult = signInRecordService.getSignRecordPage(getLoginUserId(), pageParam);
         return success(MemberSignInRecordConvert.INSTANCE.convertPage02(pageResult));

@@ -5,7 +5,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Schema(description = "管理后台 - AI 聊天消息 Response VO")
+@Schema(description = "Management backend - AI chat message Response VO")
 @Data
 public class AiChatMessageRespVO {
 

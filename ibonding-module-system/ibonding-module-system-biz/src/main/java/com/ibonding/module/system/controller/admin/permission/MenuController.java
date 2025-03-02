@@ -23,7 +23,7 @@ import java.util.List;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 菜单")
+@Tag(name = "Management Backend - Menu")
 @RestController
 @RequestMapping("/system/menu")
 @Validated
@@ -33,7 +33,7 @@ public class MenuController {
     private MenuService menuService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建菜单")
+    @Operation(summary = "Create Menu")
     @PreAuthorize("@ss.hasPermission('system:menu:create')")
     public CommonResult<Long> createMenu(@Valid @RequestBody MenuSaveVO createReqVO) {
         Long menuId = menuService.createMenu(createReqVO);
@@ -41,7 +41,7 @@ public class MenuController {
     }
 
     @PutMapping("/update")
-    @Operation(summary = "修改菜单")
+    @Operation(summary = "Update Menu")
     @PreAuthorize("@ss.hasPermission('system:menu:update')")
     public CommonResult<Boolean> updateMenu(@Valid @RequestBody MenuSaveVO updateReqVO) {
         menuService.updateMenu(updateReqVO);
@@ -49,7 +49,7 @@ public class MenuController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除菜单")
+    @Operation(summary = "Delete Menu")
     @Parameter(name = "id", description = "菜单编号", required= true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:menu:delete')")
     public CommonResult<Boolean> deleteMenu(@RequestParam("id") Long id) {
@@ -58,7 +58,7 @@ public class MenuController {
     }
 
     @GetMapping("/list")
-    @Operation(summary = "获取菜单列表", description = "用于【菜单管理】界面")
+    @Operation(summary = "Get Menu List", description = "It is used for the Menu Management interface")
     @PreAuthorize("@ss.hasPermission('system:menu:query')")
     public CommonResult<List<MenuRespVO>> getMenuList(MenuListReqVO reqVO) {
         List<MenuDO> list = menuService.getMenuList(reqVO);
@@ -67,8 +67,7 @@ public class MenuController {
     }
 
     @GetMapping({"/list-all-simple", "simple-list"})
-    @Operation(summary = "获取菜单精简信息列表", description = "只包含被开启的菜单，用于【角色分配菜单】功能的选项。" +
-            "在多租户的场景下，会只返回租户所在套餐有的菜单")
+    @Operation(summary = "Get Simple Menu List", description = "Only include the enabled menus, which are used as options for the Assign Menus to Roles function")
     public CommonResult<List<MenuSimpleRespVO>> getSimpleMenuList() {
         List<MenuDO> list = menuService.getMenuListByTenant(
                 new MenuListReqVO().setStatus(CommonStatusEnum.ENABLE.getStatus()));
@@ -78,7 +77,7 @@ public class MenuController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获取菜单信息")
+    @Operation(summary = "Get Menu")
     @PreAuthorize("@ss.hasPermission('system:menu:query')")
     public CommonResult<MenuRespVO> getMenu(Long id) {
         MenuDO menu = menuService.getMenu(id);

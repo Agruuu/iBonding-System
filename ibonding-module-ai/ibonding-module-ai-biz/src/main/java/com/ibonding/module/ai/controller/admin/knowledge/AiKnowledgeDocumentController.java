@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - AI 知识库文档")
+@Tag(name = "Management Backstage - AI Knowledge Base Documents")
 @RestController
 @RequestMapping("/ai/knowledge/document")
 @Validated
@@ -28,21 +28,21 @@ public class AiKnowledgeDocumentController {
     private AiKnowledgeDocumentService documentService;
 
     @PostMapping("/create")
-    @Operation(summary = "新建文档")
+    @Operation(summary = "Create New Document")
     public CommonResult<Long> createKnowledgeDocument(@Valid AiKnowledgeDocumentCreateReqVO reqVO) {
         Long knowledgeDocumentId = documentService.createKnowledgeDocument(reqVO);
         return success(knowledgeDocumentId);
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获取文档分页")
+    @Operation(summary = "Get the Document Pagination")
     public CommonResult<PageResult<AiKnowledgeDocumentRespVO>> getKnowledgeDocumentPage(@Valid AiKnowledgeDocumentPageReqVO pageReqVO) {
         PageResult<AiKnowledgeDocumentDO> pageResult = documentService.getKnowledgeDocumentPage(pageReqVO);
         return success(BeanUtils.toBean(pageResult, AiKnowledgeDocumentRespVO.class));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新文档")
+    @Operation(summary = "Update the Document")
     public CommonResult<Boolean> updateKnowledgeDocument(@Valid @RequestBody AiKnowledgeDocumentUpdateReqVO reqVO) {
         documentService.updateKnowledgeDocument(reqVO);
         return success(true);

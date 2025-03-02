@@ -24,7 +24,7 @@ import java.util.List;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "管理后台 - AI 聊天角色")
+@Tag(name = "Management Backend - AI Chat Role")
 @RestController
 @RequestMapping("/ai/chat-role")
 @Validated
@@ -34,14 +34,14 @@ public class AiChatRoleController {
     private AiChatRoleService chatRoleService;
 
     @GetMapping("/my-page")
-    @Operation(summary = "获得【我的】聊天角色分页")
+    @Operation(summary = "Get Pagination of [My] Chat Roles")
     public CommonResult<PageResult<AiChatRoleRespVO>> getChatRoleMyPage(@Valid AiChatRolePageReqVO pageReqVO) {
         PageResult<AiChatRoleDO> pageResult = chatRoleService.getChatRoleMyPage(pageReqVO, getLoginUserId());
         return success(BeanUtils.toBean(pageResult, AiChatRoleRespVO.class));
     }
 
     @GetMapping("/get-my")
-    @Operation(summary = "获得【我的】聊天角色")
+    @Operation(summary = "Get [My] Chat Roles")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     public CommonResult<AiChatRoleRespVO> getChatRoleMy(@RequestParam("id") Long id) {
         AiChatRoleDO chatRole = chatRoleService.getChatRole(id);
@@ -52,20 +52,20 @@ public class AiChatRoleController {
     }
 
     @PostMapping("/create-my")
-    @Operation(summary = "创建【我的】聊天角色")
+    @Operation(summary = "Create [My] Chat Role")
     public CommonResult<Long> createChatRoleMy(@Valid @RequestBody AiChatRoleSaveMyReqVO createReqVO) {
         return success(chatRoleService.createChatRoleMy(createReqVO, getLoginUserId()));
     }
 
     @PutMapping("/update-my")
-    @Operation(summary = "更新【我的】聊天角色")
+    @Operation(summary = "Update [My] Chat Role")
     public CommonResult<Boolean> updateChatRoleMy(@Valid @RequestBody AiChatRoleSaveMyReqVO updateReqVO) {
         chatRoleService.updateChatRoleMy(updateReqVO, getLoginUserId());
         return success(true);
     }
 
     @DeleteMapping("/delete-my")
-    @Operation(summary = "删除【我的】聊天角色")
+    @Operation(summary = "Delete [My] Chat Role")
     @Parameter(name = "id", description = "编号", required = true)
     public CommonResult<Boolean> deleteChatRoleMy(@RequestParam("id") Long id) {
         chatRoleService.deleteChatRoleMy(id, getLoginUserId());
@@ -73,22 +73,22 @@ public class AiChatRoleController {
     }
 
     @GetMapping("/category-list")
-    @Operation(summary = "获得聊天角色的分类列表")
+    @Operation(summary = "Get Category List of Chat Roles")
     public CommonResult<List<String>> getChatRoleCategoryList() {
          return success(chatRoleService.getChatRoleCategoryList());
     }
 
-    // ========== 角色管理 ==========
+    // ========== Role Management ==========
 
     @PostMapping("/create")
-    @Operation(summary = "创建聊天角色")
+    @Operation(summary = "Create Chat Role")
     @PreAuthorize("@ss.hasPermission('ai:chat-role:create')")
     public CommonResult<Long> createChatRole(@Valid @RequestBody AiChatRoleSaveReqVO createReqVO) {
         return success(chatRoleService.createChatRole(createReqVO));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新聊天角色")
+    @Operation(summary = "Update Chat Role")
     @PreAuthorize("@ss.hasPermission('ai:chat-role:update')")
     public CommonResult<Boolean> updateChatRole(@Valid @RequestBody AiChatRoleSaveReqVO updateReqVO) {
         chatRoleService.updateChatRole(updateReqVO);
@@ -96,7 +96,7 @@ public class AiChatRoleController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除聊天角色")
+    @Operation(summary = "Delete Chat Role")
     @Parameter(name = "id", description = "编号", required = true)
     @PreAuthorize("@ss.hasPermission('ai:chat-role:delete')")
     public CommonResult<Boolean> deleteChatRole(@RequestParam("id") Long id) {
@@ -105,7 +105,7 @@ public class AiChatRoleController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得聊天角色")
+    @Operation(summary = "Get Chat Role")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('ai:chat-role:query')")
     public CommonResult<AiChatRoleRespVO> getChatRole(@RequestParam("id") Long id) {
@@ -114,7 +114,7 @@ public class AiChatRoleController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得聊天角色分页")
+    @Operation(summary = "Get Chat Role Pagination")
     @PreAuthorize("@ss.hasPermission('ai:chat-role:query')")
     public CommonResult<PageResult<AiChatRoleRespVO>> getChatRolePage(@Valid AiChatRolePageReqVO pageReqVO) {
         PageResult<AiChatRoleDO> pageResult = chatRoleService.getChatRolePage(pageReqVO);

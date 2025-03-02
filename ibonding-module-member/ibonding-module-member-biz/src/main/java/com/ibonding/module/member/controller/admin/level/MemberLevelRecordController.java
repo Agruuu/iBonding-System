@@ -22,7 +22,7 @@ import jakarta.validation.Valid;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 会员等级记录")
+@Tag(name = "Management Backend - Membership Level Records")
 @RestController
 @RequestMapping("/member/level-record")
 @Validated
@@ -32,7 +32,7 @@ public class MemberLevelRecordController {
     private MemberLevelRecordService levelLogService;
 
     @GetMapping("/get")
-    @Operation(summary = "获得会员等级记录")
+    @Operation(summary = "Get Membership Level Records")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('member:level-record:query')")
     public CommonResult<MemberLevelRecordRespVO> getLevelRecord(@RequestParam("id") Long id) {
@@ -41,7 +41,7 @@ public class MemberLevelRecordController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得会员等级记录分页")
+    @Operation(summary = "Get Membership Level Records Pagination")
     @PreAuthorize("@ss.hasPermission('member:level-record:query')")
     public CommonResult<PageResult<MemberLevelRecordRespVO>> getLevelRecordPage(
             @Valid MemberLevelRecordPageReqVO pageVO) {

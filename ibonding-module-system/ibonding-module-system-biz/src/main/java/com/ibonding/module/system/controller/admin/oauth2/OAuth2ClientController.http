@@ -1,4 +1,4 @@
-### 请求 /login 接口 => 成功
+### Request /login API => Success
 POST {{baseUrl}}/system/oauth2-client/create
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -8,12 +8,12 @@ tenant-id: {{adminTenantId}}
   "id": "1",
   "secret": "admin123",
   "name": "Agaru",
-  "logo": "https://www.iocoder.cn/images/favicon.ico",
+  "logo": "https://i.ibb.co/8n1DDnFM/IMG-4474.jpg",
   "description": "我是描述",
   "status": 0,
   "accessTokenValiditySeconds": 180,
   "refreshTokenValiditySeconds": 8640,
-  "redirectUris": ["https://www.iocoder.cn"],
+  "redirectUris": ["https://www.ibonding.com"],
   "autoApprove": true,
   "authorizedGrantTypes": ["password"],
   "scopes": ["user_info"],

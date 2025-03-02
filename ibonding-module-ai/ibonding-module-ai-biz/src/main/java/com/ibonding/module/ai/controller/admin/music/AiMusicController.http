@@ -1,4 +1,4 @@
-### 生成音乐：Suno + 歌词模式
+### Generate Music: Suno + Lyrics Mode
 POST {{baseUrl}}/ai/music/generate
 Content-Type: application/json
 Authorization: {{token}}
@@ -12,7 +12,7 @@ Authorization: {{token}}
   "title": "Happy Song"
 }
 
-### 生成音乐：Suno + 描述模式
+### Generate Music: Suno + Description Mode
 POST {{baseUrl}}/ai/music/generate
 Content-Type: application/json
 Authorization: {{token}}

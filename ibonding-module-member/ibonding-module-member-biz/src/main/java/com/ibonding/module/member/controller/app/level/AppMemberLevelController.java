@@ -18,7 +18,7 @@ import java.util.List;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "用户 App - 会员等级")
+@Tag(name = "User App - Membership Level")
 @RestController
 @RequestMapping("/member/level")
 @Validated
@@ -28,7 +28,7 @@ public class AppMemberLevelController {
     private MemberLevelService levelService;
 
     @GetMapping("/list")
-    @Operation(summary = "获得会员等级列表")
+    @Operation(summary = "Get Membership Level List")
     @PermitAll
     public CommonResult<List<AppMemberLevelRespVO>> getLevelList() {
         List<MemberLevelDO> result = levelService.getEnableLevelList();

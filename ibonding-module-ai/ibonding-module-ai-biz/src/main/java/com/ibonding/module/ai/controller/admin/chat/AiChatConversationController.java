@@ -28,7 +28,7 @@ import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.common.util.collection.CollectionUtils.convertList;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "管理后台 - AI 聊天对话")
+@Tag(name = "Management backend - AI Chat Conversations")
 @RestController
 @RequestMapping("/ai/chat/conversation")
 @Validated
@@ -40,27 +40,27 @@ public class AiChatConversationController {
     private AiChatMessageService chatMessageService;
 
     @PostMapping("/create-my")
-    @Operation(summary = "创建【我的】聊天对话")
+    @Operation(summary = "Create [My] Chat Conversations")
     public CommonResult<Long> createChatConversationMy(@RequestBody @Valid AiChatConversationCreateMyReqVO createReqVO) {
         return success(chatConversationService.createChatConversationMy(createReqVO, getLoginUserId()));
     }
 
     @PutMapping("/update-my")
-    @Operation(summary = "更新【我的】聊天对话")
+    @Operation(summary = "Update [My] Chat Conversations")
     public CommonResult<Boolean> updateChatConversationMy(@RequestBody @Valid AiChatConversationUpdateMyReqVO updateReqVO) {
         chatConversationService.updateChatConversationMy(updateReqVO, getLoginUserId());
         return success(true);
     }
 
     @GetMapping("/my-list")
-    @Operation(summary = "获得【我的】聊天对话列表")
+    @Operation(summary = "Get the list of [My] Chat Conversations")
     public CommonResult<List<AiChatConversationRespVO>> getChatConversationMyList() {
         List<AiChatConversationDO> list = chatConversationService.getChatConversationListByUserId(getLoginUserId());
         return success(BeanUtils.toBean(list, AiChatConversationRespVO.class));
     }
 
     @GetMapping("/get-my")
-    @Operation(summary = "获得【我的】聊天对话")
+    @Operation(summary = "Get [My] Chat Conversations")
     @Parameter(name = "id", required = true, description = "对话编号", example = "1024")
     public CommonResult<AiChatConversationRespVO> getChatConversationMy(@RequestParam("id") Long id) {
         AiChatConversationDO conversation = chatConversationService.getChatConversation(id);
@@ -71,7 +71,7 @@ public class AiChatConversationController {
     }
 
     @DeleteMapping("/delete-my")
-    @Operation(summary = "删除聊天对话")
+    @Operation(summary = "Delete Chat Conversations")
     @Parameter(name = "id", required = true, description = "对话编号", example = "1024")
     public CommonResult<Boolean> deleteChatConversationMy(@RequestParam("id") Long id) {
         chatConversationService.deleteChatConversationMy(id, getLoginUserId());
@@ -79,7 +79,7 @@ public class AiChatConversationController {
     }
 
     @DeleteMapping("/delete-by-unpinned")
-    @Operation(summary = "删除未置顶的聊天对话")
+    @Operation(summary = "Delete Chat Conversations that are not pinned")
     public CommonResult<Boolean> deleteChatConversationMyByUnpinned() {
         chatConversationService.deleteChatConversationMyByUnpinned(getLoginUserId());
         return success(true);
@@ -88,7 +88,7 @@ public class AiChatConversationController {
     // ========== 对话管理 ==========
 
     @GetMapping("/page")
-    @Operation(summary = "获得对话分页", description = "用于【对话管理】菜单")
+    @Operation(summary = "Get The Paginated List of Conversations", description = "For The [Conversation Management] Menu")
     @PreAuthorize("@ss.hasPermission('ai:chat-conversation:query')")
     public CommonResult<PageResult<AiChatConversationRespVO>> getChatConversationPage(AiChatConversationPageReqVO pageReqVO) {
         PageResult<AiChatConversationDO> pageResult = chatConversationService.getChatConversationPage(pageReqVO);
@@ -102,7 +102,7 @@ public class AiChatConversationController {
                 conversation -> conversation.setMessageCount(messageCountMap.getOrDefault(conversation.getId(), 0))));
     }
 
-    @Operation(summary = "管理员删除对话")
+    @Operation(summary = "Administrator Delete Conversation")
     @DeleteMapping("/delete-by-admin")
     @Parameter(name = "id", required = true, description = "对话编号", example = "1024")
     @PreAuthorize("@ss.hasPermission('ai:chat-conversation:delete')")

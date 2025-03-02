@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-@Schema(description = "管理后台 - AI 聊天消息发送 Request VO")
+@Schema(description = "Management backend - Request VO for Sending AI Chat Messages")
 @Data
 public class AiChatMessageSendReqVO {
 

@@ -35,7 +35,7 @@ import static com.ibonding.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.common.util.collection.CollectionUtils.convertList;
 
-@Tag(name = "管理后台 - 用户")
+@Tag(name = "Management Backend - User")
 @RestController
 @RequestMapping("/system/user")
 @Validated
@@ -47,7 +47,7 @@ public class UserController {
     private DeptService deptService;
 
     @PostMapping("/create")
-    @Operation(summary = "新增用户")
+    @Operation(summary = "Create User")
     @PreAuthorize("@ss.hasPermission('system:user:create')")
     public CommonResult<Long> createUser(@Valid @RequestBody UserSaveReqVO reqVO) {
         Long id = userService.createUser(reqVO);
@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @PutMapping("update")
-    @Operation(summary = "修改用户")
+    @Operation(summary = "Update User")
     @PreAuthorize("@ss.hasPermission('system:user:update')")
     public CommonResult<Boolean> updateUser(@Valid @RequestBody UserSaveReqVO reqVO) {
         userService.updateUser(reqVO);
@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除用户")
+    @Operation(summary = "Delete User")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:user:delete')")
     public CommonResult<Boolean> deleteUser(@RequestParam("id") Long id) {
@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @PutMapping("/update-password")
-    @Operation(summary = "重置用户密码")
+    @Operation(summary = "Update User Password")
     @PreAuthorize("@ss.hasPermission('system:user:update-password')")
     public CommonResult<Boolean> updateUserPassword(@Valid @RequestBody UserUpdatePasswordReqVO reqVO) {
         userService.updateUserPassword(reqVO.getId(), reqVO.getPassword());
@@ -80,7 +80,7 @@ public class UserController {
     }
 
     @PutMapping("/update-status")
-    @Operation(summary = "修改用户状态")
+    @Operation(summary = "Update User Status")
     @PreAuthorize("@ss.hasPermission('system:user:update')")
     public CommonResult<Boolean> updateUserStatus(@Valid @RequestBody UserUpdateStatusReqVO reqVO) {
         userService.updateUserStatus(reqVO.getId(), reqVO.getStatus());
@@ -88,7 +88,7 @@ public class UserController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得用户分页列表")
+    @Operation(summary = "Get User Pagination")
     @PreAuthorize("@ss.hasPermission('system:user:query')")
     public CommonResult<PageResult<UserRespVO>> getUserPage(@Valid UserPageReqVO pageReqVO) {
         // 获得用户分页列表
@@ -104,7 +104,7 @@ public class UserController {
     }
 
     @GetMapping({"/list-all-simple", "/simple-list"})
-    @Operation(summary = "获取用户精简信息列表", description = "只包含被开启的用户，主要用于前端的下拉选项")
+    @Operation(summary = "Get Simple User List", description = "Only include the enabled users, mainly used for the dropdown options on the front-end")
     public CommonResult<List<UserSimpleRespVO>> getSimpleUserList() {
         List<AdminUserDO> list = userService.getUserListByStatus(CommonStatusEnum.ENABLE.getStatus());
         // 拼接数据
@@ -114,7 +114,7 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得用户详情")
+    @Operation(summary = "Get User")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:user:query')")
     public CommonResult<UserRespVO> getUser(@RequestParam("id") Long id) {
@@ -128,7 +128,7 @@ public class UserController {
     }
 
     @GetMapping("/export")
-    @Operation(summary = "导出用户")
+    @Operation(summary = "Export")
     @PreAuthorize("@ss.hasPermission('system:user:export')")
     @ApiAccessLog(operateType = EXPORT)
     public void exportUserList(@Validated UserPageReqVO exportReqVO,
@@ -143,7 +143,7 @@ public class UserController {
     }
 
     @GetMapping("/get-import-template")
-    @Operation(summary = "获得导入用户模板")
+    @Operation(summary = "Get Import Template")
     public void importTemplate(HttpServletResponse response) throws IOException {
         // 手动创建导出 demo
         List<UserImportExcelVO> list = Arrays.asList(
@@ -157,7 +157,7 @@ public class UserController {
     }
 
     @PostMapping("/import")
-    @Operation(summary = "导入用户")
+    @Operation(summary = "Import")
     @Parameters({
             @Parameter(name = "file", description = "Excel 文件", required = true),
             @Parameter(name = "updateSupport", description = "是否支持更新，默认为 false", example = "true")

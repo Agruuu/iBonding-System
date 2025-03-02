@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 import static com.ibonding.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
-@Schema(description = "管理后台 - AI 聊天对话的分页 Request VO")
+@Schema(description = "Management backend - Pagination Request VO for AI chat conversations")
 @Data
 public class AiChatConversationPageReqVO extends PageParam {
 

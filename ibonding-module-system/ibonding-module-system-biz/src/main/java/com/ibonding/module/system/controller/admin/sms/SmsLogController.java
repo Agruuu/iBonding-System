@@ -27,7 +27,7 @@ import java.util.List;
 import static com.ibonding.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 短信日志")
+@Tag(name = "Management Backend - SMS Log")
 @RestController
 @RequestMapping("/system/sms-log")
 @Validated
@@ -37,7 +37,7 @@ public class SmsLogController {
     private SmsLogService smsLogService;
 
     @GetMapping("/page")
-    @Operation(summary = "获得短信日志分页")
+    @Operation(summary = "Get SMS Log Pagination")
     @PreAuthorize("@ss.hasPermission('system:sms-log:query')")
     public CommonResult<PageResult<SmsLogRespVO>> getSmsLogPage(@Valid SmsLogPageReqVO pageReqVO) {
         PageResult<SmsLogDO> pageResult = smsLogService.getSmsLogPage(pageReqVO);
@@ -45,7 +45,7 @@ public class SmsLogController {
     }
 
     @GetMapping("/export-excel")
-    @Operation(summary = "导出短信日志 Excel")
+    @Operation(summary = "Export Excel")
     @PreAuthorize("@ss.hasPermission('system:sms-log:export')")
     @ApiAccessLog(operateType = EXPORT)
     public void exportSmsLogExcel(@Valid SmsLogPageReqVO exportReqVO,

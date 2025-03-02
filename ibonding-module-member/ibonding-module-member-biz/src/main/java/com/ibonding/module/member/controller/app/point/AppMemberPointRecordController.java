@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "用户 App - 签到记录")
+@Tag(name = "User App - Membership Point Records")
 @RestController
 @RequestMapping("/member/point/record")
 @Validated
@@ -29,7 +29,7 @@ public class AppMemberPointRecordController {
     private MemberPointRecordService pointRecordService;
 
     @GetMapping("/page")
-    @Operation(summary = "获得用户积分记录分页")
+    @Operation(summary = "Get Membership Point Records Pagination")
     public CommonResult<PageResult<AppMemberPointRecordRespVO>> getPointRecordPage(
             @Valid AppMemberPointRecordPageReqVO pageReqVO) {
         PageResult<MemberPointRecordDO> pageResult = pointRecordService.getPointRecordPage(getLoginUserId(), pageReqVO);

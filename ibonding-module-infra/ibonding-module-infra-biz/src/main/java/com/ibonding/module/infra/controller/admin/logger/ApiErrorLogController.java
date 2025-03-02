@@ -28,7 +28,7 @@ import static com.ibonding.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "管理后台 - API 错误日志")
+@Tag(name = "Management Backend - API Error Log")
 @RestController
 @RequestMapping("/infra/api-error-log")
 @Validated
@@ -38,7 +38,7 @@ public class ApiErrorLogController {
     private ApiErrorLogService apiErrorLogService;
 
     @PutMapping("/update-status")
-    @Operation(summary = "更新 API 错误日志的状态")
+    @Operation(summary = "Update API Error Log Status")
     @Parameters({
             @Parameter(name = "id", description = "编号", required = true, example = "1024"),
             @Parameter(name = "processStatus", description = "处理状态", required = true, example = "1")
@@ -51,7 +51,7 @@ public class ApiErrorLogController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得 API 错误日志分页")
+    @Operation(summary = "Get API Error Log Pagination")
     @PreAuthorize("@ss.hasPermission('infra:api-error-log:query')")
     public CommonResult<PageResult<ApiErrorLogRespVO>> getApiErrorLogPage(@Valid ApiErrorLogPageReqVO pageReqVO) {
         PageResult<ApiErrorLogDO> pageResult = apiErrorLogService.getApiErrorLogPage(pageReqVO);
@@ -59,7 +59,7 @@ public class ApiErrorLogController {
     }
 
     @GetMapping("/export-excel")
-    @Operation(summary = "导出 API 错误日志 Excel")
+    @Operation(summary = "Export Excel")
     @PreAuthorize("@ss.hasPermission('infra:api-error-log:export')")
     @ApiAccessLog(operateType = EXPORT)
     public void exportApiErrorLogExcel(@Valid ApiErrorLogPageReqVO exportReqVO,

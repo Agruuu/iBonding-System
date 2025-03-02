@@ -22,7 +22,7 @@ import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.g
 /**
  * @author Agaru
  */
-@Tag(name = "用户 APP - 钱包")
+@Tag(name = "User APP - Payment Wallet")
 @RestController
 @RequestMapping("/pay/wallet")
 @Validated
@@ -33,7 +33,7 @@ public class AppPayWalletController {
     private PayWalletService payWalletService;
 
     @GetMapping("/get")
-    @Operation(summary = "获取钱包")
+    @Operation(summary = "Get Payment Wallet")
     public CommonResult<AppPayWalletRespVO> getPayWallet() {
         PayWalletDO wallet = payWalletService.getOrCreateWallet(getLoginUserId(), UserTypeEnum.MEMBER.getValue());
         return success(PayWalletConvert.INSTANCE.convert(wallet));

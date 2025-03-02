@@ -28,7 +28,7 @@ import java.util.List;
 import static com.ibonding.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 操作日志")
+@Tag(name = "Management Backend - Operation Log")
 @RestController
 @RequestMapping("/system/operate-log")
 @Validated
@@ -38,14 +38,14 @@ public class OperateLogController {
     private OperateLogService operateLogService;
 
     @GetMapping("/page")
-    @Operation(summary = "查看操作日志分页列表")
+    @Operation(summary = "Get Operation Log Pagination")
     @PreAuthorize("@ss.hasPermission('system:operate-log:query')")
     public CommonResult<PageResult<OperateLogRespVO>> pageOperateLog(@Valid OperateLogPageReqVO pageReqVO) {
         PageResult<OperateLogDO> pageResult = operateLogService.getOperateLogPage(pageReqVO);
         return success(BeanUtils.toBean(pageResult, OperateLogRespVO.class));
     }
 
-    @Operation(summary = "导出操作日志")
+    @Operation(summary = "Export")
     @GetMapping("/export")
     @PreAuthorize("@ss.hasPermission('system:operate-log:export')")
     @ApiAccessLog(operateType = EXPORT)

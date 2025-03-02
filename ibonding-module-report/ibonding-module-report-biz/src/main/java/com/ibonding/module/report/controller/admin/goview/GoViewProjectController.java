@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "管理后台 - GoView 项目")
+@Tag(name = "Management backend - GoView Project")
 @RestController
 @RequestMapping("/report/go-view/project")
 @Validated
@@ -33,14 +33,14 @@ public class GoViewProjectController {
     private GoViewProjectService goViewProjectService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建项目")
+    @Operation(summary = "Create Project")
     @PreAuthorize("@ss.hasPermission('report:go-view-project:create')")
     public CommonResult<Long> createProject(@Valid @RequestBody GoViewProjectCreateReqVO createReqVO) {
         return success(goViewProjectService.createProject(createReqVO));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新项目")
+    @Operation(summary = "Update Project")
     @PreAuthorize("@ss.hasPermission('report:go-view-project:update')")
     public CommonResult<Boolean> updateProject(@Valid @RequestBody GoViewProjectUpdateReqVO updateReqVO) {
         goViewProjectService.updateProject(updateReqVO);
@@ -48,7 +48,7 @@ public class GoViewProjectController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除 GoView 项目")
+    @Operation(summary = "Delete GoView Project")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('report:go-view-project:delete')")
     public CommonResult<Boolean> deleteProject(@RequestParam("id") Long id) {
@@ -57,7 +57,7 @@ public class GoViewProjectController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得项目")
+    @Operation(summary = "Get Project")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('report:go-view-project:query')")
     public CommonResult<GoViewProjectRespVO> getProject(@RequestParam("id") Long id) {
@@ -66,7 +66,7 @@ public class GoViewProjectController {
     }
 
     @GetMapping("/my-page")
-    @Operation(summary = "获得我的项目分页")
+    @Operation(summary = "Get My Project Pagination")
     @PreAuthorize("@ss.hasPermission('report:go-view-project:query')")
     public CommonResult<PageResult<GoViewProjectRespVO>> getMyProjectPage(@Valid PageParam pageVO) {
         PageResult<GoViewProjectDO> pageResult = goViewProjectService.getMyProjectPage(

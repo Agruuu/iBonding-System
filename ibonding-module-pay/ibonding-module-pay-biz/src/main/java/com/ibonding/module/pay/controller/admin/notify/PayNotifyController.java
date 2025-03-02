@@ -39,7 +39,7 @@ import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.common.util.collection.CollectionUtils.convertList;
 import static com.ibonding.module.pay.enums.ErrorCodeConstants.CHANNEL_NOT_FOUND;
 
-@Tag(name = "管理后台 - 回调通知")
+@Tag(name = "Management Backend - Payment Callback Notify")
 @RestController
 @RequestMapping("/pay/notify")
 @Validated
@@ -60,7 +60,7 @@ public class PayNotifyController {
     private PayChannelService channelService;
 
     @PostMapping(value = "/order/{channelId}")
-    @Operation(summary = "支付渠道的统一【支付】回调")
+    @Operation(summary = "Unified [Payment] callback for payment channel")
     @PermitAll
     public String notifyOrder(@PathVariable("channelId") Long channelId,
                               @RequestParam(required = false) Map<String, String> params,
@@ -80,7 +80,7 @@ public class PayNotifyController {
     }
 
     @PostMapping(value = "/refund/{channelId}")
-    @Operation(summary = "支付渠道的统一【退款】回调")
+    @Operation(summary = "Unified [Refund] callback for payment channel")
     @PermitAll
     public String notifyRefund(@PathVariable("channelId") Long channelId,
                                @RequestParam(required = false) Map<String, String> params,
@@ -100,7 +100,7 @@ public class PayNotifyController {
     }
 
     @PostMapping(value = "/transfer/{channelId}")
-    @Operation(summary = "支付渠道的统一【转账】回调")
+    @Operation(summary = "Unified [Transfer] callback for payment channel")
     @PermitAll
     public String notifyTransfer(@PathVariable("channelId") Long channelId,
                                  @RequestParam(required = false) Map<String, String> params,
@@ -120,7 +120,7 @@ public class PayNotifyController {
     }
 
     @GetMapping("/get-detail")
-    @Operation(summary = "获得回调通知的明细")
+    @Operation(summary = "Get Callback Notification Detail")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('pay:notify:query')")
     public CommonResult<PayNotifyTaskDetailRespVO> getNotifyTaskDetail(@RequestParam("id") Long id) {
@@ -135,7 +135,7 @@ public class PayNotifyController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得回调通知分页")
+    @Operation(summary = "Get Callback Notify Pagination")
     @PreAuthorize("@ss.hasPermission('pay:notify:query')")
     public CommonResult<PageResult<PayNotifyTaskRespVO>> getNotifyTaskPage(@Valid PayNotifyTaskPageReqVO pageVO) {
         PageResult<PayNotifyTaskDO> pageResult = notifyService.getNotifyTaskPage(pageVO);

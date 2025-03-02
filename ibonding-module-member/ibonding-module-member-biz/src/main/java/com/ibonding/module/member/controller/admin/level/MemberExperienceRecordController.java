@@ -22,7 +22,7 @@ import jakarta.validation.Valid;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 会员经验记录")
+@Tag(name = "Management Backend - Membership Experience Records")
 @RestController
 @RequestMapping("/member/experience-record")
 @Validated
@@ -32,7 +32,7 @@ public class MemberExperienceRecordController {
     private MemberExperienceRecordService experienceLogService;
 
     @GetMapping("/get")
-    @Operation(summary = "获得会员经验记录")
+    @Operation(summary = "Get Membership Experience Records")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('member:experience-record:query')")
     public CommonResult<MemberExperienceRecordRespVO> getExperienceRecord(@RequestParam("id") Long id) {
@@ -41,7 +41,7 @@ public class MemberExperienceRecordController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得会员经验记录分页")
+    @Operation(summary = "Get Membership Experience Records Pagination")
     @PreAuthorize("@ss.hasPermission('member:experience-record:query')")
     public CommonResult<PageResult<MemberExperienceRecordRespVO>> getExperienceRecordPage(
             @Valid MemberExperienceRecordPageReqVO pageVO) {

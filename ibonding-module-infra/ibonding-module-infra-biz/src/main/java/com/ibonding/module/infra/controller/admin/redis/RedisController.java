@@ -18,7 +18,7 @@ import java.util.Properties;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - Redis 监控")
+@Tag(name = "Management Backend - Redis Monitor")
 @RestController
 @RequestMapping("/infra/redis")
 public class RedisController {
@@ -27,7 +27,7 @@ public class RedisController {
     private StringRedisTemplate stringRedisTemplate;
 
     @GetMapping("/get-monitor-info")
-    @Operation(summary = "获得 Redis 监控信息")
+    @Operation(summary = "Get Redis Monitor Info")
     @PreAuthorize("@ss.hasPermission('infra:redis:get-monitor-info')")
     public CommonResult<RedisMonitorRespVO> getRedisMonitorInfo() {
         // 获得 Redis 统计信息

@@ -27,7 +27,7 @@ import static com.ibonding.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static com.ibonding.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 参数配置")
+@Tag(name = "Management Backend - Parameter Configuration")
 @RestController
 @RequestMapping("/infra/config")
 @Validated
@@ -37,14 +37,14 @@ public class ConfigController {
     private ConfigService configService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建参数配置")
+    @Operation(summary = "Create Parameter Config")
     @PreAuthorize("@ss.hasPermission('infra:config:create')")
     public CommonResult<Long> createConfig(@Valid @RequestBody ConfigSaveReqVO createReqVO) {
         return success(configService.createConfig(createReqVO));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "修改参数配置")
+    @Operation(summary = "Update Parameter Config")
     @PreAuthorize("@ss.hasPermission('infra:config:update')")
     public CommonResult<Boolean> updateConfig(@Valid @RequestBody ConfigSaveReqVO updateReqVO) {
         configService.updateConfig(updateReqVO);
@@ -52,7 +52,7 @@ public class ConfigController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除参数配置")
+    @Operation(summary = "Delete Parameter Config")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('infra:config:delete')")
     public CommonResult<Boolean> deleteConfig(@RequestParam("id") Long id) {
@@ -61,7 +61,7 @@ public class ConfigController {
     }
 
     @GetMapping(value = "/get")
-    @Operation(summary = "获得参数配置")
+    @Operation(summary = "Get Parameter Config")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('infra:config:query')")
     public CommonResult<ConfigRespVO> getConfig(@RequestParam("id") Long id) {
@@ -69,7 +69,7 @@ public class ConfigController {
     }
 
     @GetMapping(value = "/get-value-by-key")
-    @Operation(summary = "根据参数键名查询参数值", description = "不可见的配置，不允许返回给前端")
+    @Operation(summary = "Query Parameter Value by Parameter Key", description = "Invisible configurations are not allowed to be returned to the front-end")
     @Parameter(name = "key", description = "参数键", required = true, example = "ibonding.biz.username")
     public CommonResult<String> getConfigKey(@RequestParam("key") String key) {
         ConfigDO config = configService.getConfigByKey(key);
@@ -83,7 +83,7 @@ public class ConfigController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获取参数配置分页")
+    @Operation(summary = "Get Parameter Config Pagination")
     @PreAuthorize("@ss.hasPermission('infra:config:query')")
     public CommonResult<PageResult<ConfigRespVO>> getConfigPage(@Valid ConfigPageReqVO pageReqVO) {
         PageResult<ConfigDO> page = configService.getConfigPage(pageReqVO);
@@ -91,7 +91,7 @@ public class ConfigController {
     }
 
     @GetMapping("/export")
-    @Operation(summary = "导出参数配置")
+    @Operation(summary = "Export Parameter Config")
     @PreAuthorize("@ss.hasPermission('infra:config:export')")
     @ApiAccessLog(operateType = EXPORT)
     public void exportConfig(ConfigPageReqVO exportReqVO,

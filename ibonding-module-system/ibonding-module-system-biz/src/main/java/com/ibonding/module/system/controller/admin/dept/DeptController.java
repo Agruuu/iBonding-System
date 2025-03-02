@@ -22,7 +22,7 @@ import java.util.List;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 部门")
+@Tag(name = "Management Backend - Department")
 @RestController
 @RequestMapping("/system/dept")
 @Validated
@@ -32,7 +32,7 @@ public class DeptController {
     private DeptService deptService;
 
     @PostMapping("create")
-    @Operation(summary = "创建部门")
+    @Operation(summary = "Create Department")
     @PreAuthorize("@ss.hasPermission('system:dept:create')")
     public CommonResult<Long> createDept(@Valid @RequestBody DeptSaveReqVO createReqVO) {
         Long deptId = deptService.createDept(createReqVO);
@@ -40,7 +40,7 @@ public class DeptController {
     }
 
     @PutMapping("update")
-    @Operation(summary = "更新部门")
+    @Operation(summary = "Update Department")
     @PreAuthorize("@ss.hasPermission('system:dept:update')")
     public CommonResult<Boolean> updateDept(@Valid @RequestBody DeptSaveReqVO updateReqVO) {
         deptService.updateDept(updateReqVO);
@@ -48,7 +48,7 @@ public class DeptController {
     }
 
     @DeleteMapping("delete")
-    @Operation(summary = "删除部门")
+    @Operation(summary = "Delete Department")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:dept:delete')")
     public CommonResult<Boolean> deleteDept(@RequestParam("id") Long id) {
@@ -57,7 +57,7 @@ public class DeptController {
     }
 
     @GetMapping("/list")
-    @Operation(summary = "获取部门列表")
+    @Operation(summary = "Get Department List")
     @PreAuthorize("@ss.hasPermission('system:dept:query')")
     public CommonResult<List<DeptRespVO>> getDeptList(DeptListReqVO reqVO) {
         List<DeptDO> list = deptService.getDeptList(reqVO);
@@ -65,7 +65,7 @@ public class DeptController {
     }
 
     @GetMapping(value = {"/list-all-simple", "/simple-list"})
-    @Operation(summary = "获取部门精简信息列表", description = "只包含被开启的部门，主要用于前端的下拉选项")
+    @Operation(summary = "Get Simple Department List", description = "Only include the enabled departments, mainly used for the dropdown options on the front-end")
     public CommonResult<List<DeptSimpleRespVO>> getSimpleDeptList() {
         List<DeptDO> list = deptService.getDeptList(
                 new DeptListReqVO().setStatus(CommonStatusEnum.ENABLE.getStatus()));
@@ -73,7 +73,7 @@ public class DeptController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得部门信息")
+    @Operation(summary = "Get Department")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:dept:query')")
     public CommonResult<DeptRespVO> getDept(@RequestParam("id") Long id) {

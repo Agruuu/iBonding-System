@@ -29,7 +29,7 @@ import java.util.List;
 import static com.ibonding.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 字典数据")
+@Tag(name = "Management Backend - Dictionary Data")
 @RestController
 @RequestMapping("/system/dict-data")
 @Validated
@@ -39,7 +39,7 @@ public class DictDataController {
     private DictDataService dictDataService;
 
     @PostMapping("/create")
-    @Operation(summary = "新增字典数据")
+    @Operation(summary = "Create")
     @PreAuthorize("@ss.hasPermission('system:dict:create')")
     public CommonResult<Long> createDictData(@Valid @RequestBody DictDataSaveReqVO createReqVO) {
         Long dictDataId = dictDataService.createDictData(createReqVO);
@@ -47,7 +47,7 @@ public class DictDataController {
     }
 
     @PutMapping("/update")
-    @Operation(summary = "修改字典数据")
+    @Operation(summary = "Update")
     @PreAuthorize("@ss.hasPermission('system:dict:update')")
     public CommonResult<Boolean> updateDictData(@Valid @RequestBody DictDataSaveReqVO updateReqVO) {
         dictDataService.updateDictData(updateReqVO);
@@ -55,7 +55,7 @@ public class DictDataController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除字典数据")
+    @Operation(summary = "Delete")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:dict:delete')")
     public CommonResult<Boolean> deleteDictData(Long id) {
@@ -64,7 +64,7 @@ public class DictDataController {
     }
 
     @GetMapping(value = {"/list-all-simple", "simple-list"})
-    @Operation(summary = "获得全部字典数据列表", description = "一般用于管理后台缓存字典数据在本地")
+    @Operation(summary = "Get Simple List", description = "Generally used to cache dictionary data locally in the management backend")
     // 无需添加权限认证，因为前端全局都需要
     public CommonResult<List<DictDataSimpleRespVO>> getSimpleDictDataList() {
         List<DictDataDO> list = dictDataService.getDictDataList(
@@ -73,7 +73,7 @@ public class DictDataController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "/获得字典类型的分页列表")
+    @Operation(summary = "Get Dict Type Pagination")
     @PreAuthorize("@ss.hasPermission('system:dict:query')")
     public CommonResult<PageResult<DictDataRespVO>> getDictTypePage(@Valid DictDataPageReqVO pageReqVO) {
         PageResult<DictDataDO> pageResult = dictDataService.getDictDataPage(pageReqVO);
@@ -81,7 +81,7 @@ public class DictDataController {
     }
 
     @GetMapping(value = "/get")
-    @Operation(summary = "/查询字典数据详细")
+    @Operation(summary = "Get Dict Data")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:dict:query')")
     public CommonResult<DictDataRespVO> getDictData(@RequestParam("id") Long id) {
@@ -90,7 +90,7 @@ public class DictDataController {
     }
 
     @GetMapping("/export")
-    @Operation(summary = "导出字典数据")
+    @Operation(summary = "Export")
     @PreAuthorize("@ss.hasPermission('system:dict:export')")
     @ApiAccessLog(operateType = EXPORT)
     public void export(HttpServletResponse response, @Valid DictDataPageReqVO exportReqVO) throws IOException {

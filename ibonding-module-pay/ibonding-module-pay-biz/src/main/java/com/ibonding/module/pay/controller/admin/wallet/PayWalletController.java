@@ -24,7 +24,7 @@ import static com.ibonding.framework.common.exception.util.ServiceExceptionUtil.
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.module.pay.enums.ErrorCodeConstants.WALLET_NOT_FOUND;
 
-@Tag(name = "管理后台 - 用户钱包")
+@Tag(name = "Management Backend - User Wallet")
 @RestController
 @RequestMapping("/pay/wallet")
 @Validated
@@ -36,14 +36,14 @@ public class PayWalletController {
 
     @GetMapping("/get")
     @PreAuthorize("@ss.hasPermission('pay:wallet:query')")
-    @Operation(summary = "获得用户钱包明细")
+    @Operation(summary = "Get User Wallet Detail")
     public CommonResult<PayWalletRespVO> getWallet(PayWalletUserReqVO reqVO) {
         PayWalletDO wallet = payWalletService.getOrCreateWallet(reqVO.getUserId(), MEMBER.getValue());
         return success(PayWalletConvert.INSTANCE.convert02(wallet));
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得会员钱包分页")
+    @Operation(summary = "Get User Wallet Pagination")
     @PreAuthorize("@ss.hasPermission('pay:wallet:query')")
     public CommonResult<PageResult<PayWalletRespVO>> getWalletPage(@Valid PayWalletPageReqVO pageVO) {
         PageResult<PayWalletDO> pageResult = payWalletService.getWalletPage(pageVO);
@@ -51,7 +51,7 @@ public class PayWalletController {
     }
 
     @PutMapping("/update-balance")
-    @Operation(summary = "更新会员用户余额")
+    @Operation(summary = "Update User Wallet Balance")
     @PreAuthorize("@ss.hasPermission('pay:wallet:update-balance')")
     public CommonResult<Boolean> updateWalletBalance(@Valid @RequestBody PayWalletUpdateBalanceReqVO updateReqVO) {
         // 获得用户钱包

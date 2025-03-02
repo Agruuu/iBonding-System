@@ -20,7 +20,7 @@ import java.util.List;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "管理后台 - 邮件模版")
+@Tag(name = "Management Backend - Email Template")
 @RestController
 @RequestMapping("/system/mail-template")
 public class MailTemplateController {
@@ -31,14 +31,14 @@ public class MailTemplateController {
     private MailSendService mailSendService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建邮件模版")
+    @Operation(summary = "Create Mail Template")
     @PreAuthorize("@ss.hasPermission('system:mail-template:create')")
     public CommonResult<Long> createMailTemplate(@Valid @RequestBody MailTemplateSaveReqVO createReqVO){
         return success(mailTempleService.createMailTemplate(createReqVO));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "修改邮件模版")
+    @Operation(summary = "Update Mail Template")
     @PreAuthorize("@ss.hasPermission('system:mail-template:update')")
     public CommonResult<Boolean> updateMailTemplate(@Valid @RequestBody MailTemplateSaveReqVO updateReqVO){
         mailTempleService.updateMailTemplate(updateReqVO);
@@ -46,7 +46,7 @@ public class MailTemplateController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除邮件模版")
+    @Operation(summary = "Delete Mail Template")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:mail-template:delete')")
     public CommonResult<Boolean> deleteMailTemplate(@RequestParam("id") Long id) {
@@ -55,7 +55,7 @@ public class MailTemplateController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得邮件模版")
+    @Operation(summary = "Get Mail Template")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:mail-template:query')")
     public CommonResult<MailTemplateRespVO> getMailTemplate(@RequestParam("id") Long id) {
@@ -64,7 +64,7 @@ public class MailTemplateController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得邮件模版分页")
+    @Operation(summary = "Get Mail Template Pagination")
     @PreAuthorize("@ss.hasPermission('system:mail-template:query')")
     public CommonResult<PageResult<MailTemplateRespVO>> getMailTemplatePage(@Valid MailTemplatePageReqVO pageReqVO) {
         PageResult<MailTemplateDO> pageResult = mailTempleService.getMailTemplatePage(pageReqVO);
@@ -72,14 +72,14 @@ public class MailTemplateController {
     }
 
     @GetMapping({"/list-all-simple", "simple-list"})
-    @Operation(summary = "获得邮件模版精简列表")
+    @Operation(summary = "Get Simple Mail Template List")
     public CommonResult<List<MailTemplateSimpleRespVO>> getSimpleTemplateList() {
         List<MailTemplateDO> list = mailTempleService.getMailTemplateList();
         return success(BeanUtils.toBean(list, MailTemplateSimpleRespVO.class));
     }
 
     @PostMapping("/send-mail")
-    @Operation(summary = "发送短信")
+    @Operation(summary = "Send Mail")
     @PreAuthorize("@ss.hasPermission('system:mail-template:send-mail')")
     public CommonResult<Long> sendMail(@Valid @RequestBody MailTemplateSendReqVO sendReqVO) {
         return success(mailSendService.sendSingleMailToAdmin(sendReqVO.getMail(), getLoginUserId(),

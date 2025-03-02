@@ -18,7 +18,7 @@ import jakarta.validation.Valid;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.common.util.servlet.ServletUtils.getClientIP;
 
-@Tag(name = "管理后台 - 钱包充值")
+@Tag(name = "Management Backend - Wallet Recharge")
 @RestController
 @RequestMapping("/pay/wallet-recharge")
 @Validated
@@ -29,7 +29,7 @@ public class PayWalletRechargeController {
     private PayWalletRechargeService walletRechargeService;
 
     @PostMapping("/update-paid")
-    @Operation(summary = "更新钱包充值为已充值") // 由 pay-module 支付服务，进行回调，可见 PayNotifyJob
+    @Operation(summary = "Update Wallet Recharge Status to Recharged") // 由 pay-module 支付服务，进行回调，可见 PayNotifyJob
     @PermitAll // 无需登录， 内部校验实现
     public CommonResult<Boolean> updateWalletRechargerPaid(@Valid @RequestBody PayOrderNotifyReqDTO notifyReqDTO) {
         walletRechargeService.updateWalletRechargerPaid(Long.valueOf(notifyReqDTO.getMerchantOrderId()),
@@ -39,7 +39,7 @@ public class PayWalletRechargeController {
 
     // TODO @Agaru：发起退款，要 post 操作哈；
     @GetMapping("/refund")
-    @Operation(summary = "发起钱包充值退款")
+    @Operation(summary = "Initiate Refund Wallet Recharge")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     public CommonResult<Boolean> refundWalletRecharge(@RequestParam("id") Long id) {
         walletRechargeService.refundWalletRecharge(id, getClientIP());
@@ -47,7 +47,7 @@ public class PayWalletRechargeController {
     }
 
     @PostMapping("/update-refunded")
-    @Operation(summary = "更新钱包充值为已退款") // 由 pay-module 支付服务，进行回调，可见 PayNotifyJob
+    @Operation(summary = "Update Wallet Recharge Status to Refunded") // 由 pay-module 支付服务，进行回调，可见 PayNotifyJob
     @PermitAll // 无需登录， 内部校验实现
     public CommonResult<Boolean> updateWalletRechargeRefunded(@RequestBody PayRefundNotifyReqDTO notifyReqDTO) {
         walletRechargeService.updateWalletRechargeRefunded(

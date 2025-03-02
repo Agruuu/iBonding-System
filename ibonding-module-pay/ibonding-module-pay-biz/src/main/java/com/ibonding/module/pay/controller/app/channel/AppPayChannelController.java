@@ -19,7 +19,7 @@ import java.util.Set;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.common.util.collection.CollectionUtils.convertSet;
 
-@Tag(name = "用户 App - 支付渠道")
+@Tag(name = "User App - Payment Channel")
 @RestController
 @RequestMapping("/pay/channel")
 @Validated
@@ -29,7 +29,7 @@ public class AppPayChannelController {
     private PayChannelService channelService;
 
     @GetMapping("/get-enable-code-list")
-    @Operation(summary = "获得指定应用的开启的支付渠道编码列表")
+    @Operation(summary = "Get Enable Channel Code List")
     @Parameter(name = "appId", description = "应用编号", required = true, example = "1")
     public CommonResult<Set<String>> getEnableChannelCodeList(@RequestParam("appId") Long appId) {
         List<PayChannelDO> channels = channelService.getEnableChannelList(appId);

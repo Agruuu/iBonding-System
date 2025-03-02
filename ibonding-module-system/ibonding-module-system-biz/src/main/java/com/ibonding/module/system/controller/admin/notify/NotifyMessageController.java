@@ -24,7 +24,7 @@ import java.util.List;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "管理后台 - 我的站内信")
+@Tag(name = "Management Backend - My In-station Messages")
 @RestController
 @RequestMapping("/system/notify-message")
 @Validated
@@ -36,7 +36,7 @@ public class NotifyMessageController {
     // ========== 管理所有的站内信 ==========
 
     @GetMapping("/get")
-    @Operation(summary = "获得站内信")
+    @Operation(summary = "Get Notify Message")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:notify-message:query')")
     public CommonResult<NotifyMessageRespVO> getNotifyMessage(@RequestParam("id") Long id) {
@@ -45,7 +45,7 @@ public class NotifyMessageController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得站内信分页")
+    @Operation(summary = "Get Notify Message Pagination")
     @PreAuthorize("@ss.hasPermission('system:notify-message:query')")
     public CommonResult<PageResult<NotifyMessageRespVO>> getNotifyMessagePage(@Valid NotifyMessagePageReqVO pageVO) {
         PageResult<NotifyMessageDO> pageResult = notifyMessageService.getNotifyMessagePage(pageVO);
@@ -55,7 +55,7 @@ public class NotifyMessageController {
     // ========== 查看自己的站内信 ==========
 
     @GetMapping("/my-page")
-    @Operation(summary = "获得我的站内信分页")
+    @Operation(summary = "Get My Notify Message Pagination")
     public CommonResult<PageResult<NotifyMessageRespVO>> getMyMyNotifyMessagePage(@Valid NotifyMessageMyPageReqVO pageVO) {
         PageResult<NotifyMessageDO> pageResult = notifyMessageService.getMyMyNotifyMessagePage(pageVO,
                 getLoginUserId(), UserTypeEnum.ADMIN.getValue());
@@ -63,7 +63,7 @@ public class NotifyMessageController {
     }
 
     @PutMapping("/update-read")
-    @Operation(summary = "标记站内信为已读")
+    @Operation(summary = "Update Notify Message to Read Status")
     @Parameter(name = "ids", description = "编号列表", required = true, example = "1024,2048")
     public CommonResult<Boolean> updateNotifyMessageRead(@RequestParam("ids") List<Long> ids) {
         notifyMessageService.updateNotifyMessageRead(ids, getLoginUserId(), UserTypeEnum.ADMIN.getValue());
@@ -71,14 +71,14 @@ public class NotifyMessageController {
     }
 
     @PutMapping("/update-all-read")
-    @Operation(summary = "标记所有站内信为已读")
+    @Operation(summary = "Update All Notify Message to Read Status")
     public CommonResult<Boolean> updateAllNotifyMessageRead() {
         notifyMessageService.updateAllNotifyMessageRead(getLoginUserId(), UserTypeEnum.ADMIN.getValue());
         return success(Boolean.TRUE);
     }
 
     @GetMapping("/get-unread-list")
-    @Operation(summary = "获取当前用户的最新站内信列表，默认 10 条")
+    @Operation(summary = "Get Unread Notify Message List，Default 10 Message")
     @Parameter(name = "size", description = "10")
     public CommonResult<List<NotifyMessageRespVO>> getUnreadNotifyMessageList(
             @RequestParam(name = "size", defaultValue = "10") Integer size) {
@@ -88,7 +88,7 @@ public class NotifyMessageController {
     }
 
     @GetMapping("/get-unread-count")
-    @Operation(summary = "获得当前用户的未读站内信数量")
+    @Operation(summary = "Get Unread Notify Message Count")
     @ApiAccessLog(enable = false) // 由于前端会不断轮询该接口，记录日志没有意义
     public CommonResult<Long> getUnreadNotifyMessageCount() {
         return success(notifyMessageService.getUnreadNotifyMessageCount(

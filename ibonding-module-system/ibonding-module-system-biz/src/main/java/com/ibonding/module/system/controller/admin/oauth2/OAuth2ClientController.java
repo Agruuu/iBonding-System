@@ -20,7 +20,7 @@ import jakarta.validation.Valid;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - OAuth2 客户端")
+@Tag(name = "Management Backend - OAuth2 Client")
 @RestController
 @RequestMapping("/system/oauth2-client")
 @Validated
@@ -30,14 +30,14 @@ public class OAuth2ClientController {
     private OAuth2ClientService oAuth2ClientService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建 OAuth2 客户端")
+    @Operation(summary = "Create OAuth2 Client")
     @PreAuthorize("@ss.hasPermission('system:oauth2-client:create')")
     public CommonResult<Long> createOAuth2Client(@Valid @RequestBody OAuth2ClientSaveReqVO createReqVO) {
         return success(oAuth2ClientService.createOAuth2Client(createReqVO));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新 OAuth2 客户端")
+    @Operation(summary = "Update OAuth2 Client")
     @PreAuthorize("@ss.hasPermission('system:oauth2-client:update')")
     public CommonResult<Boolean> updateOAuth2Client(@Valid @RequestBody OAuth2ClientSaveReqVO updateReqVO) {
         oAuth2ClientService.updateOAuth2Client(updateReqVO);
@@ -45,7 +45,7 @@ public class OAuth2ClientController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除 OAuth2 客户端")
+    @Operation(summary = "Delete OAuth2 Client")
     @Parameter(name = "id", description = "编号", required = true)
     @PreAuthorize("@ss.hasPermission('system:oauth2-client:delete')")
     public CommonResult<Boolean> deleteOAuth2Client(@RequestParam("id") Long id) {
@@ -54,7 +54,7 @@ public class OAuth2ClientController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得 OAuth2 客户端")
+    @Operation(summary = "Get OAuth2 Client")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:oauth2-client:query')")
     public CommonResult<OAuth2ClientRespVO> getOAuth2Client(@RequestParam("id") Long id) {
@@ -63,7 +63,7 @@ public class OAuth2ClientController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得 OAuth2 客户端分页")
+    @Operation(summary = "Get OAuth2 Client Pagination")
     @PreAuthorize("@ss.hasPermission('system:oauth2-client:query')")
     public CommonResult<PageResult<OAuth2ClientRespVO>> getOAuth2ClientPage(@Valid OAuth2ClientPageReqVO pageVO) {
         PageResult<OAuth2ClientDO> pageResult = oAuth2ClientService.getOAuth2ClientPage(pageVO);

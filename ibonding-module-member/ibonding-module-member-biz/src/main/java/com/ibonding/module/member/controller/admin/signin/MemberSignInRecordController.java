@@ -25,7 +25,7 @@ import java.util.List;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.common.util.collection.CollectionUtils.convertSet;
 
-@Tag(name = "管理后台 - 签到记录")
+@Tag(name = "Management Backend - Sign-in Records")
 @RestController
 @RequestMapping("/member/sign-in/record")
 @Validated
@@ -38,7 +38,7 @@ public class MemberSignInRecordController {
     private MemberUserService memberUserService;
 
     @GetMapping("/page")
-    @Operation(summary = "获得签到记录分页")
+    @Operation(summary = "Get Sign-in Records Pagination")
     @PreAuthorize("@ss.hasPermission('point:sign-in-record:query')")
     public CommonResult<PageResult<MemberSignInRecordRespVO>> getSignInRecordPage(@Valid MemberSignInRecordPageReqVO pageVO) {
         // 执行分页查询

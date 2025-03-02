@@ -21,7 +21,7 @@ import java.util.List;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "用户 App - 字典数据")
+@Tag(name = "User App - Dictionary Data")
 @RestController
 @RequestMapping("/system/dict-data")
 @Validated
@@ -31,7 +31,7 @@ public class AppDictDataController {
     private DictDataService dictDataService;
 
     @GetMapping("/type")
-    @Operation(summary = "根据字典类型查询字典数据信息")
+    @Operation(summary = "Get Dict Data List by Type")
     @Parameter(name = "type", description = "字典类型", required = true, example = "common_status")
     @PermitAll
     public CommonResult<List<AppDictDataRespVO>> getDictDataListByType(@RequestParam("type") String type) {

@@ -37,7 +37,7 @@ import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 import static com.ibonding.module.infra.framework.file.core.utils.FileTypeUtils.writeAttachment;
 
-@Tag(name = "管理后台 - 代码生成器")
+@Tag(name = "Management Backstage - Code Generator")
 @RestController
 @RequestMapping("/infra/codegen")
 @Validated
@@ -47,7 +47,7 @@ public class CodegenController {
     private CodegenService codegenService;
 
     @GetMapping("/db/table/list")
-    @Operation(summary = "获得数据库自带的表定义列表", description = "会过滤掉已经导入 Codegen 的表")
+    @Operation(summary = "Get the List of Table Definitions Provided by the Database", description = "Will Filter Out Tables That Have Been Imported into Codegen")
     @Parameters({
             @Parameter(name = "dataSourceConfigId", description = "数据源配置的编号", required = true, example = "1"),
             @Parameter(name = "name", description = "表名，模糊匹配", example = "ibonding"),
@@ -62,7 +62,7 @@ public class CodegenController {
     }
 
     @GetMapping("/table/list")
-    @Operation(summary = "获得表定义列表")
+    @Operation(summary = "Get Table Definition List")
     @Parameter(name = "dataSourceConfigId", description = "数据源配置的编号", required = true, example = "1")
     @PreAuthorize("@ss.hasPermission('infra:codegen:query')")
     public CommonResult<List<CodegenTableRespVO>> getCodegenTableList(@RequestParam(value = "dataSourceConfigId") Long dataSourceConfigId) {
@@ -71,7 +71,7 @@ public class CodegenController {
     }
 
     @GetMapping("/table/page")
-    @Operation(summary = "获得表定义分页")
+    @Operation(summary = "Get Table Definition Pagination")
     @PreAuthorize("@ss.hasPermission('infra:codegen:query')")
     public CommonResult<PageResult<CodegenTableRespVO>> getCodegenTablePage(@Valid CodegenTablePageReqVO pageReqVO) {
         PageResult<CodegenTableDO> pageResult = codegenService.getCodegenTablePage(pageReqVO);
@@ -79,7 +79,7 @@ public class CodegenController {
     }
 
     @GetMapping("/detail")
-    @Operation(summary = "获得表和字段的明细")
+    @Operation(summary = "Get Details of Tables and Fields")
     @Parameter(name = "tableId", description = "表编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('infra:codegen:query')")
     public CommonResult<CodegenDetailRespVO> getCodegenDetail(@RequestParam("tableId") Long tableId) {
@@ -89,14 +89,14 @@ public class CodegenController {
         return success(CodegenConvert.INSTANCE.convert(table, columns));
     }
 
-    @Operation(summary = "基于数据库的表结构，创建代码生成器的表和字段定义")
+    @Operation(summary = "Create Table and Field Definitions for the Code Generator Based on the Database Table Structure")
     @PostMapping("/create-list")
     @PreAuthorize("@ss.hasPermission('infra:codegen:create')")
     public CommonResult<List<Long>> createCodegenList(@Valid @RequestBody CodegenCreateListReqVO reqVO) {
         return success(codegenService.createCodegenList(getLoginUserId(), reqVO));
     }
 
-    @Operation(summary = "更新数据库的表和字段定义")
+    @Operation(summary = "Update the Table and Field Definitions of the Database")
     @PutMapping("/update")
     @PreAuthorize("@ss.hasPermission('infra:codegen:update')")
     public CommonResult<Boolean> updateCodegen(@Valid @RequestBody CodegenUpdateReqVO updateReqVO) {
@@ -104,7 +104,7 @@ public class CodegenController {
         return success(true);
     }
 
-    @Operation(summary = "基于数据库的表结构，同步数据库的表和字段定义")
+    @Operation(summary = "Sync the Table and Field Definitions of the Database Based on Its Table Structure")
     @PutMapping("/sync-from-db")
     @Parameter(name = "tableId", description = "表编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('infra:codegen:update')")
@@ -113,7 +113,7 @@ public class CodegenController {
         return success(true);
     }
 
-    @Operation(summary = "删除数据库的表和字段定义")
+    @Operation(summary = "Delete the Table and Field Definitions of the Database")
     @DeleteMapping("/delete")
     @Parameter(name = "tableId", description = "表编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('infra:codegen:delete')")
@@ -122,7 +122,7 @@ public class CodegenController {
         return success(true);
     }
 
-    @Operation(summary = "预览生成代码")
+    @Operation(summary = "Preview Generated Code")
     @GetMapping("/preview")
     @Parameter(name = "tableId", description = "表编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('infra:codegen:preview')")
@@ -131,7 +131,7 @@ public class CodegenController {
         return success(CodegenConvert.INSTANCE.convert(codes));
     }
 
-    @Operation(summary = "下载生成代码")
+    @Operation(summary = "Download Generated Code")
     @GetMapping("/download")
     @Parameter(name = "tableId", description = "表编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('infra:codegen:download')")

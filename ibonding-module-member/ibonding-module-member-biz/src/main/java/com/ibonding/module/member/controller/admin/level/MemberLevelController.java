@@ -18,7 +18,7 @@ import java.util.List;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 会员等级")
+@Tag(name = "Management Backend - Membership Level")
 @RestController
 @RequestMapping("/member/level")
 @Validated
@@ -28,14 +28,14 @@ public class MemberLevelController {
     private MemberLevelService levelService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建会员等级")
+    @Operation(summary = "Create Membership Level")
     @PreAuthorize("@ss.hasPermission('member:level:create')")
     public CommonResult<Long> createLevel(@Valid @RequestBody MemberLevelCreateReqVO createReqVO) {
         return success(levelService.createLevel(createReqVO));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新会员等级")
+    @Operation(summary = "Update Membership Level")
     @PreAuthorize("@ss.hasPermission('member:level:update')")
     public CommonResult<Boolean> updateLevel(@Valid @RequestBody MemberLevelUpdateReqVO updateReqVO) {
         levelService.updateLevel(updateReqVO);
@@ -43,7 +43,7 @@ public class MemberLevelController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除会员等级")
+    @Operation(summary = "Delete Membership Level")
     @Parameter(name = "id", description = "编号", required = true)
     @PreAuthorize("@ss.hasPermission('member:level:delete')")
     public CommonResult<Boolean> deleteLevel(@RequestParam("id") Long id) {
@@ -52,7 +52,7 @@ public class MemberLevelController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得会员等级")
+    @Operation(summary = "Get Membership Level")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('member:level:query')")
     public CommonResult<MemberLevelRespVO> getLevel(@RequestParam("id") Long id) {
@@ -61,7 +61,7 @@ public class MemberLevelController {
     }
 
     @GetMapping("/list-all-simple")
-    @Operation(summary = "获取会员等级精简信息列表", description = "只包含被开启的会员等级，主要用于前端的下拉选项")
+    @Operation(summary = "Get the List of Simplified Membership Level Information", description = "Get the list of simplified information of enabled membership levels, mainly used for dropdown options on the front-end")
     public CommonResult<List<MemberLevelSimpleRespVO>> getSimpleLevelList() {
         // 获用户列表，只要开启状态的
         List<MemberLevelDO> list = levelService.getEnableLevelList();
@@ -70,7 +70,7 @@ public class MemberLevelController {
     }
 
     @GetMapping("/list")
-    @Operation(summary = "获得会员等级列表")
+    @Operation(summary = "Get Membership Level List")
     @PreAuthorize("@ss.hasPermission('member:level:query')")
     public CommonResult<List<MemberLevelRespVO>> getLevelList(@Valid MemberLevelListReqVO listReqVO) {
         List<MemberLevelDO> result = levelService.getLevelList(listReqVO);

@@ -22,7 +22,7 @@ import java.util.List;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.common.util.collection.CollectionUtils.convertList;
 
-@Tag(name = "管理后台 - AI 聊天模型")
+@Tag(name = "Management Backstage - AI Chat Model")
 @RestController
 @RequestMapping("/ai/chat-model")
 @Validated
@@ -32,14 +32,14 @@ public class AiChatModelController {
     private AiChatModelService chatModelService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建聊天模型")
+    @Operation(summary = "Create Chat Model")
     @PreAuthorize("@ss.hasPermission('ai:chat-model:create')")
     public CommonResult<Long> createChatModel(@Valid @RequestBody AiChatModelSaveReqVO createReqVO) {
         return success(chatModelService.createChatModel(createReqVO));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新聊天模型")
+    @Operation(summary = "Update Chat Model")
     @PreAuthorize("@ss.hasPermission('ai:chat-model:update')")
     public CommonResult<Boolean> updateChatModel(@Valid @RequestBody AiChatModelSaveReqVO updateReqVO) {
         chatModelService.updateChatModel(updateReqVO);
@@ -47,7 +47,7 @@ public class AiChatModelController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除聊天模型")
+    @Operation(summary = "Delete Chat Model")
     @Parameter(name = "id", description = "编号", required = true)
     @PreAuthorize("@ss.hasPermission('ai:chat-model:delete')")
     public CommonResult<Boolean> deleteChatModel(@RequestParam("id") Long id) {
@@ -56,7 +56,7 @@ public class AiChatModelController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得聊天模型")
+    @Operation(summary = "Get Chat Model")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('ai:chat-model:query')")
     public CommonResult<AiChatModelRespVO> getChatModel(@RequestParam("id") Long id) {
@@ -65,7 +65,7 @@ public class AiChatModelController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得聊天模型分页")
+    @Operation(summary = "Get Chat Model Pagination")
     @PreAuthorize("@ss.hasPermission('ai:chat-model:query')")
     public CommonResult<PageResult<AiChatModelRespVO>> getChatModelPage(@Valid AiChatModelPageReqVO pageReqVO) {
         PageResult<AiChatModelDO> pageResult = chatModelService.getChatModelPage(pageReqVO);
@@ -73,7 +73,7 @@ public class AiChatModelController {
     }
 
     @GetMapping("/simple-list")
-    @Operation(summary = "获得聊天模型列表")
+    @Operation(summary = "Get Chat Model List")
     @Parameter(name = "status", description = "状态", required = true, example = "1")
     public CommonResult<List<AiChatModelRespVO>> getChatModelSimpleList(@RequestParam("status") Integer status) {
         List<AiChatModelDO> list = chatModelService.getChatModelListByStatus(status);

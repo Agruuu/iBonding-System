@@ -29,7 +29,7 @@ import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "用户 APP - 钱包余额明细")
+@Tag(name = "User APP - Wallet Transaction")
 @RestController
 @RequestMapping("/pay/wallet-transaction")
 @Validated
@@ -40,7 +40,7 @@ public class AppPayWalletTransactionController {
     private PayWalletTransactionService payWalletTransactionService;
 
     @GetMapping("/page")
-    @Operation(summary = "获得钱包流水分页")
+    @Operation(summary = "Get Wallet Transaction Pagination")
     public CommonResult<PageResult<AppPayWalletTransactionRespVO>> getWalletTransactionPage(
             @Valid AppPayWalletTransactionPageReqVO pageReqVO) {
         PageResult<PayWalletTransactionDO> pageResult = payWalletTransactionService.getWalletTransactionPage(
@@ -49,7 +49,7 @@ public class AppPayWalletTransactionController {
     }
 
     @GetMapping("/get-summary")
-    @Operation(summary = "获得钱包流水统计")
+    @Operation(summary = "Get Wallet Transaction Summary")
     @Parameter(name = "times", description = "时间段", required = true)
     public CommonResult<AppPayWalletTransactionSummaryRespVO> getWalletTransactionSummary(
             @RequestParam("createTime") @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND) LocalDateTime[] createTime) {

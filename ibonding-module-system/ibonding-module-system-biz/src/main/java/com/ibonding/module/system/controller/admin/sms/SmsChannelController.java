@@ -22,7 +22,7 @@ import java.util.List;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 短信渠道")
+@Tag(name = "Management Backend - SMS Channel")
 @RestController
 @RequestMapping("system/sms-channel")
 public class SmsChannelController {
@@ -31,14 +31,14 @@ public class SmsChannelController {
     private SmsChannelService smsChannelService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建短信渠道")
+    @Operation(summary = "Create SMS Channel")
     @PreAuthorize("@ss.hasPermission('system:sms-channel:create')")
     public CommonResult<Long> createSmsChannel(@Valid @RequestBody SmsChannelSaveReqVO createReqVO) {
         return success(smsChannelService.createSmsChannel(createReqVO));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新短信渠道")
+    @Operation(summary = "Update SMS Channel")
     @PreAuthorize("@ss.hasPermission('system:sms-channel:update')")
     public CommonResult<Boolean> updateSmsChannel(@Valid @RequestBody SmsChannelSaveReqVO updateReqVO) {
         smsChannelService.updateSmsChannel(updateReqVO);
@@ -46,7 +46,7 @@ public class SmsChannelController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除短信渠道")
+    @Operation(summary = "Delete SMS Channel")
     @Parameter(name = "id", description = "编号", required = true)
     @PreAuthorize("@ss.hasPermission('system:sms-channel:delete')")
     public CommonResult<Boolean> deleteSmsChannel(@RequestParam("id") Long id) {
@@ -55,7 +55,7 @@ public class SmsChannelController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得短信渠道")
+    @Operation(summary = "Get SMS Channel")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:sms-channel:query')")
     public CommonResult<SmsChannelRespVO> getSmsChannel(@RequestParam("id") Long id) {
@@ -64,7 +64,7 @@ public class SmsChannelController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得短信渠道分页")
+    @Operation(summary = "Get SMS Channel Pagination")
     @PreAuthorize("@ss.hasPermission('system:sms-channel:query')")
     public CommonResult<PageResult<SmsChannelRespVO>> getSmsChannelPage(@Valid SmsChannelPageReqVO pageVO) {
         PageResult<SmsChannelDO> pageResult = smsChannelService.getSmsChannelPage(pageVO);
@@ -72,7 +72,7 @@ public class SmsChannelController {
     }
 
     @GetMapping({"/list-all-simple", "/simple-list"})
-    @Operation(summary = "获得短信渠道精简列表", description = "包含被禁用的短信渠道")
+    @Operation(summary = "Get Simple SMS Channel List", description = "Include the disabled SMS channel")
     public CommonResult<List<SmsChannelSimpleRespVO>> getSimpleSmsChannelList() {
         List<SmsChannelDO> list = smsChannelService.getSmsChannelList();
         list.sort(Comparator.comparing(SmsChannelDO::getId));

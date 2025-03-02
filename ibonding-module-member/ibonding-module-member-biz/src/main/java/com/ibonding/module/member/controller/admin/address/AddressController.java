@@ -20,7 +20,7 @@ import java.util.List;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 用户收件地址")
+@Tag(name = "Management Backend - User Receiving Addresses")
 @RestController
 @RequestMapping("/member/address")
 @Validated
@@ -30,7 +30,7 @@ public class AddressController {
     private AddressService addressService;
 
     @GetMapping("/list")
-    @Operation(summary = "获得用户收件地址列表")
+    @Operation(summary = "Get the List of User Receiving Addresses")
     @Parameter(name = "userId", description = "用户编号", required = true)
     @PreAuthorize("@ss.hasPermission('member:user:query')")
     public CommonResult<List<AddressRespVO>> getAddressList(@RequestParam("userId") Long userId) {

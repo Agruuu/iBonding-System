@@ -19,7 +19,7 @@ import java.util.List;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 数据源配置")
+@Tag(name = "Management Backend - Data Source Config")
 @RestController
 @RequestMapping("/infra/data-source-config")
 @Validated
@@ -29,14 +29,14 @@ public class DataSourceConfigController {
     private DataSourceConfigService dataSourceConfigService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建数据源配置")
+    @Operation(summary = "Create Data Source Config")
     @PreAuthorize("@ss.hasPermission('infra:data-source-config:create')")
     public CommonResult<Long> createDataSourceConfig(@Valid @RequestBody DataSourceConfigSaveReqVO createReqVO) {
         return success(dataSourceConfigService.createDataSourceConfig(createReqVO));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新数据源配置")
+    @Operation(summary = "Update Data Source Config")
     @PreAuthorize("@ss.hasPermission('infra:data-source-config:update')")
     public CommonResult<Boolean> updateDataSourceConfig(@Valid @RequestBody DataSourceConfigSaveReqVO updateReqVO) {
         dataSourceConfigService.updateDataSourceConfig(updateReqVO);
@@ -44,7 +44,7 @@ public class DataSourceConfigController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除数据源配置")
+    @Operation(summary = "Delete Data Source Config")
     @Parameter(name = "id", description = "编号", required = true)
     @PreAuthorize("@ss.hasPermission('infra:data-source-config:delete')")
     public CommonResult<Boolean> deleteDataSourceConfig(@RequestParam("id") Long id) {
@@ -53,7 +53,7 @@ public class DataSourceConfigController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得数据源配置")
+    @Operation(summary = "Get Data Source Config")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('infra:data-source-config:query')")
     public CommonResult<DataSourceConfigRespVO> getDataSourceConfig(@RequestParam("id") Long id) {
@@ -62,7 +62,7 @@ public class DataSourceConfigController {
     }
 
     @GetMapping("/list")
-    @Operation(summary = "获得数据源配置列表")
+    @Operation(summary = "Get Data Source Config Pagination")
     @PreAuthorize("@ss.hasPermission('infra:data-source-config:query')")
     public CommonResult<List<DataSourceConfigRespVO>> getDataSourceConfigList() {
         List<DataSourceConfigDO> list = dataSourceConfigService.getDataSourceConfigList();

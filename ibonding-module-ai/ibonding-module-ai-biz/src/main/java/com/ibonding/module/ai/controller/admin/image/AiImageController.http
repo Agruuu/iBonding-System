@@ -1,4 +1,4 @@
-### 生成图片：OpenAI（DALL）
+### Generate Image: OpenAI（DALL）
 POST {{baseUrl}}/ai/image/draw
 Content-Type: application/json
 Authorization: {{token}}
@@ -14,7 +14,7 @@ Authorization: {{token}}
   }
 }
 
-### 生成图片：StableDiffusion
+### Generate Image: StableDiffusion
 POST {{baseUrl}}/ai/image/draw
 Content-Type: application/json
 Authorization: {{token}}
@@ -28,7 +28,7 @@ Authorization: {{token}}
   "style": "vivid"
 }
 
-### 生成图片：生成图片（Midjourney）
+### Generate Image:（Midjourney）
 POST {{baseUrl}}/ai/image/midjourney/imagine
 Content-Type: application/json
 Authorization: {{token}}

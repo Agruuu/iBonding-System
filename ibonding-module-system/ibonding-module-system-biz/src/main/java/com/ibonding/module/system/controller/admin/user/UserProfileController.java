@@ -35,7 +35,7 @@ import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 import static com.ibonding.module.infra.enums.ErrorCodeConstants.FILE_IS_EMPTY;
 
-@Tag(name = "管理后台 - 用户个人中心")
+@Tag(name = "Management Backend - User Personal Center")
 @RestController
 @RequestMapping("/system/user/profile")
 @Validated
@@ -56,7 +56,7 @@ public class UserProfileController {
     private SocialUserService socialService;
 
     @GetMapping("/get")
-    @Operation(summary = "获得登录用户信息")
+    @Operation(summary = "Get User Profile")
     @DataPermission(enable = false) // 关闭数据权限，避免只查看自己时，查询不到部门。
     public CommonResult<UserProfileRespVO> getUserProfile() {
         // 获得用户基本信息
@@ -73,14 +73,14 @@ public class UserProfileController {
     }
 
     @PutMapping("/update")
-    @Operation(summary = "修改用户个人信息")
+    @Operation(summary = "Update User Profile")
     public CommonResult<Boolean> updateUserProfile(@Valid @RequestBody UserProfileUpdateReqVO reqVO) {
         userService.updateUserProfile(getLoginUserId(), reqVO);
         return success(true);
     }
 
     @PutMapping("/update-password")
-    @Operation(summary = "修改用户个人密码")
+    @Operation(summary = "Update User Password")
     public CommonResult<Boolean> updateUserProfilePassword(@Valid @RequestBody UserProfileUpdatePasswordReqVO reqVO) {
         userService.updateUserPassword(getLoginUserId(), reqVO);
         return success(true);
@@ -88,7 +88,7 @@ public class UserProfileController {
 
     @RequestMapping(value = "/update-avatar",
             method = {RequestMethod.POST, RequestMethod.PUT}) // 解决 uni-app 不支持 Put 上传文件的问题
-    @Operation(summary = "上传用户个人头像")
+    @Operation(summary = "Update User Avatar")
     public CommonResult<String> updateUserAvatar(@RequestParam("avatarFile") MultipartFile file) throws Exception {
         if (file.isEmpty()) {
             throw exception(FILE_IS_EMPTY);

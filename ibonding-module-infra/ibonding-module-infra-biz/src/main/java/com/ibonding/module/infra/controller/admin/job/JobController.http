@@ -1,4 +1,4 @@
-### 请求 /infra/job/sync 接口 => 成功
+### Request the /infra/job/sync interface => Success
 POST {{baseUrl}}/infra/job/sync
 Content-Type: application/json
 tenant-id: {{adminTenantId}}

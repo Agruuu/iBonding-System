@@ -22,7 +22,7 @@ import reactor.core.publisher.Flux;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "管理后台 - AI 思维导图")
+@Tag(name = "Management Backstage - AI Mind Map")
 @RestController
 @RequestMapping("/ai/mind-map")
 public class AiMindMapController {
@@ -31,7 +31,7 @@ public class AiMindMapController {
     private AiMindMapService mindMapService;
 
     @PostMapping(value = "/generate-stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    @Operation(summary = "导图生成（流式）", description = "流式返回，响应较快")
+    @Operation(summary = "Mind Map Generation (Streaming)", description = "Streaming Return, Faster Response")
     @PermitAll  // 解决 SSE 最终响应的时候，会被 Access Denied 拦截的问题
     public Flux<CommonResult<String>> generateMindMap(@RequestBody @Valid AiMindMapGenerateReqVO generateReqVO) {
         return mindMapService.generateMindMap(generateReqVO, getLoginUserId());
@@ -40,7 +40,7 @@ public class AiMindMapController {
     // ================ 导图管理 ================
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除思维导图")
+    @Operation(summary = "Delete Mind Map")
     @Parameter(name = "id", description = "编号", required = true)
     @PreAuthorize("@ss.hasPermission('ai:mind-map:delete')")
     public CommonResult<Boolean> deleteMindMap(@RequestParam("id") Long id) {
@@ -49,7 +49,7 @@ public class AiMindMapController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得思维导图分页")
+    @Operation(summary = "Get Mind Map Pagination")
     @PreAuthorize("@ss.hasPermission('ai:mind-map:query')")
     public CommonResult<PageResult<AiMindMapRespVO>> getMindMapPage(@Valid AiMindMapPageReqVO pageReqVO) {
         PageResult<AiMindMapDO> pageResult = mindMapService.getMindMapPage(pageReqVO);

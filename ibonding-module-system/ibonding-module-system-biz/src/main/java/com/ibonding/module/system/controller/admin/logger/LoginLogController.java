@@ -27,7 +27,7 @@ import java.util.List;
 import static com.ibonding.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 登录日志")
+@Tag(name = "Management Backend - Login Log")
 @RestController
 @RequestMapping("/system/login-log")
 @Validated
@@ -37,7 +37,7 @@ public class LoginLogController {
     private LoginLogService loginLogService;
 
     @GetMapping("/page")
-    @Operation(summary = "获得登录日志分页列表")
+    @Operation(summary = "Get Login Log Pagination")
     @PreAuthorize("@ss.hasPermission('system:login-log:query')")
     public CommonResult<PageResult<LoginLogRespVO>> getLoginLogPage(@Valid LoginLogPageReqVO pageReqVO) {
         PageResult<LoginLogDO> pageResult = loginLogService.getLoginLogPage(pageReqVO);
@@ -45,7 +45,7 @@ public class LoginLogController {
     }
 
     @GetMapping("/export")
-    @Operation(summary = "导出登录日志 Excel")
+    @Operation(summary = "Export Excel")
     @PreAuthorize("@ss.hasPermission('system:login-log:export')")
     @ApiAccessLog(operateType = EXPORT)
     public void exportLoginLog(HttpServletResponse response, @Valid LoginLogPageReqVO exportReqVO) throws IOException {

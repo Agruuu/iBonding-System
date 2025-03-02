@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 社交客户端")
+@Tag(name = "Management Backend - Social Client")
 @RestController
 @RequestMapping("/system/social-client")
 @Validated
@@ -33,14 +33,14 @@ public class SocialClientController {
     private SocialClientApi socialClientApi;
 
     @PostMapping("/create")
-    @Operation(summary = "创建社交客户端")
+    @Operation(summary = "Create Social Client")
     @PreAuthorize("@ss.hasPermission('system:social-client:create')")
     public CommonResult<Long> createSocialClient(@Valid @RequestBody SocialClientSaveReqVO createReqVO) {
         return success(socialClientService.createSocialClient(createReqVO));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新社交客户端")
+    @Operation(summary = "Update Social Client")
     @PreAuthorize("@ss.hasPermission('system:social-client:update')")
     public CommonResult<Boolean> updateSocialClient(@Valid @RequestBody SocialClientSaveReqVO updateReqVO) {
         socialClientService.updateSocialClient(updateReqVO);
@@ -48,7 +48,7 @@ public class SocialClientController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除社交客户端")
+    @Operation(summary = "Delete Social Client")
     @Parameter(name = "id", description = "编号", required = true)
     @PreAuthorize("@ss.hasPermission('system:social-client:delete')")
     public CommonResult<Boolean> deleteSocialClient(@RequestParam("id") Long id) {
@@ -57,7 +57,7 @@ public class SocialClientController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得社交客户端")
+    @Operation(summary = "Get Social Client")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:social-client:query')")
     public CommonResult<SocialClientRespVO> getSocialClient(@RequestParam("id") Long id) {
@@ -66,7 +66,7 @@ public class SocialClientController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得社交客户端分页")
+    @Operation(summary = "Get Social Client Pagination")
     @PreAuthorize("@ss.hasPermission('system:social-client:query')")
     public CommonResult<PageResult<SocialClientRespVO>> getSocialClientPage(@Valid SocialClientPageReqVO pageVO) {
         PageResult<SocialClientDO> pageResult = socialClientService.getSocialClientPage(pageVO);
@@ -74,7 +74,7 @@ public class SocialClientController {
     }
 
     @PostMapping("/send-subscribe-message")
-    @Operation(summary = "发送订阅消息") // 用于测试
+    @Operation(summary = "Send Subscribe Message") // 用于测试
     @PreAuthorize("@ss.hasPermission('system:social-client:query')")
     public void sendSubscribeMessage(@RequestBody SocialWxaSubscribeMessageSendReqDTO reqDTO) {
         socialClientApi.sendWxaSubscribeMessage(reqDTO);

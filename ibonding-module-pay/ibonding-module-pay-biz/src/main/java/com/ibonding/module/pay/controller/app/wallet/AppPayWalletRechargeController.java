@@ -34,7 +34,7 @@ import static com.ibonding.framework.common.util.servlet.ServletUtils.getClientI
 import static com.ibonding.framework.web.core.util.WebFrameworkUtils.getLoginUserId;
 import static com.ibonding.framework.web.core.util.WebFrameworkUtils.getLoginUserType;
 
-@Tag(name = "用户 APP - 钱包充值")
+@Tag(name = "User APP - Wallet Recharge")
 @RestController
 @RequestMapping("/pay/wallet-recharge")
 @Validated
@@ -47,7 +47,7 @@ public class AppPayWalletRechargeController {
     private PayOrderService payOrderService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建钱包充值记录（发起充值）")
+    @Operation(summary = "Create Wallet Recharge Record (Initiate Recharge)")
     public CommonResult<AppPayWalletRechargeCreateRespVO> createWalletRecharge(
             @Valid @RequestBody  AppPayWalletRechargeCreateReqVO reqVO) {
         PayWalletRechargeDO walletRecharge = walletRechargeService.createWalletRecharge(
@@ -56,7 +56,7 @@ public class AppPayWalletRechargeController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得钱包充值记录分页")
+    @Operation(summary = "Get Wallet Recharge Record Pagination")
     public CommonResult<PageResult<AppPayWalletRechargeRespVO>> getWalletRechargePage(@Valid PageParam pageReqVO) {
         PageResult<PayWalletRechargeDO> pageResult = walletRechargeService.getWalletRechargePackagePage(
                 getLoginUserId(), UserTypeEnum.MEMBER.getValue(), pageReqVO, true);

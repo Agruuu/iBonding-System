@@ -18,7 +18,7 @@ import jakarta.validation.Valid;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.common.util.servlet.ServletUtils.getClientIP;
 
-@Tag(name = "管理后台 - 转账单")
+@Tag(name = "Management Backend - Transfer Order")
 @RestController
 @RequestMapping("/pay/transfer")
 @Validated
@@ -28,7 +28,7 @@ public class PayTransferController {
     private PayTransferService payTransferService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建转账单，发起转账")
+    @Operation(summary = "Create Transfer Order and Initiate Transfer")
     @PreAuthorize("@ss.hasPermission('pay:transfer:create')")
     public CommonResult<PayTransferCreateRespVO> createPayTransfer(@Valid @RequestBody PayTransferCreateReqVO reqVO) {
         PayTransferDO payTransfer = payTransferService.createTransfer(reqVO, getClientIP());
@@ -36,14 +36,14 @@ public class PayTransferController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得转账订单")
+    @Operation(summary = "Get Transfer Order")
     @PreAuthorize("@ss.hasPermission('pay:transfer:query')")
     public CommonResult<PayTransferRespVO> getTransfer(@RequestParam("id") Long id) {
         return success(PayTransferConvert.INSTANCE.convert(payTransferService.getTransfer(id)));
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得转账订单分页")
+    @Operation(summary = "Get Transfer Order Pagination")
     @PreAuthorize("@ss.hasPermission('pay:transfer:query')")
     public CommonResult<PageResult<PayTransferPageItemRespVO>> getTransferPage(@Valid PayTransferPageReqVO pageVO) {
         PageResult<PayTransferDO> pageResult = payTransferService.getTransferPage(pageVO);

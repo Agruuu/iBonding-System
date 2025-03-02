@@ -41,7 +41,7 @@ import static com.ibonding.framework.common.util.servlet.ServletUtils.getClientI
 import static com.ibonding.framework.web.core.util.WebFrameworkUtils.getLoginUserId;
 import static com.ibonding.framework.web.core.util.WebFrameworkUtils.getLoginUserType;
 
-@Tag(name = "管理后台 - 支付订单")
+@Tag(name = "Management Backend - Payment Order")
 @RestController
 @RequestMapping("/pay/order")
 @Validated
@@ -53,7 +53,7 @@ public class PayOrderController {
     private PayAppService appService;
 
     @GetMapping("/get")
-    @Operation(summary = "获得支付订单")
+    @Operation(summary = "Get Payment Order")
     @Parameters({
             @Parameter(name = "id", description = "编号", required = true, example = "1024"),
             @Parameter(name = "sync", description = "是否同步", example = "true")
@@ -72,7 +72,7 @@ public class PayOrderController {
     }
 
     @GetMapping("/get-detail")
-    @Operation(summary = "获得支付订单详情")
+    @Operation(summary = "Get Payment Order Detail")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('pay:order:query')")
     public CommonResult<PayOrderDetailsRespVO> getOrderDetail(@RequestParam("id") Long id) {
@@ -88,7 +88,7 @@ public class PayOrderController {
     }
 
     @PostMapping("/submit")
-    @Operation(summary = "提交支付订单")
+    @Operation(summary = "Submit Payment Order")
     public CommonResult<PayOrderSubmitRespVO> submitPayOrder(@RequestBody PayOrderSubmitReqVO reqVO) {
         // 1. 钱包支付事，需要额外传 user_id 和 user_type
         if (Objects.equals(reqVO.getChannelCode(), PayChannelEnum.WALLET.getCode())) {
@@ -105,7 +105,7 @@ public class PayOrderController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得支付订单分页")
+    @Operation(summary = "Get Payment Order Pagination")
     @PreAuthorize("@ss.hasPermission('pay:order:query')")
     public CommonResult<PageResult<PayOrderPageItemRespVO>> getOrderPage(@Valid PayOrderPageReqVO pageVO) {
         PageResult<PayOrderDO> pageResult = orderService.getOrderPage(pageVO);
@@ -119,7 +119,7 @@ public class PayOrderController {
     }
 
     @GetMapping("/export-excel")
-    @Operation(summary = "导出支付订单 Excel")
+    @Operation(summary = "Export Excel")
     @PreAuthorize("@ss.hasPermission('pay:order:export')")
     @ApiAccessLog(operateType = EXPORT)
     public void exportOrderExcel(@Valid PayOrderExportReqVO exportReqVO,

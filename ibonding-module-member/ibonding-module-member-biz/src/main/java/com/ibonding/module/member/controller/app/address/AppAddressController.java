@@ -20,7 +20,7 @@ import java.util.List;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "用户 APP - 用户收件地址")
+@Tag(name = "User APP - User Shipping Addresses")
 @RestController
 @RequestMapping("/member/address")
 @Validated
@@ -30,20 +30,20 @@ public class AppAddressController {
     private AddressService addressService;
 
     @PostMapping("/create")
-    @Operation(summary = "创建用户收件地址")
+    @Operation(summary = "Create User Shipping Address")
     public CommonResult<Long> createAddress(@Valid @RequestBody AppAddressCreateReqVO createReqVO) {
         return success(addressService.createAddress(getLoginUserId(), createReqVO));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新用户收件地址")
+    @Operation(summary = "Update User Shipping Address")
     public CommonResult<Boolean> updateAddress(@Valid @RequestBody AppAddressUpdateReqVO updateReqVO) {
         addressService.updateAddress(getLoginUserId(), updateReqVO);
         return success(true);
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "删除用户收件地址")
+    @Operation(summary = "Delete User Shipping Address")
     @Parameter(name = "id", description = "编号", required = true)
     public CommonResult<Boolean> deleteAddress(@RequestParam("id") Long id) {
         addressService.deleteAddress(getLoginUserId(), id);
@@ -51,7 +51,7 @@ public class AppAddressController {
     }
 
     @GetMapping("/get")
-    @Operation(summary = "获得用户收件地址")
+    @Operation(summary = "Get User Shipping Address")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     public CommonResult<AppAddressRespVO> getAddress(@RequestParam("id") Long id) {
         MemberAddressDO address = addressService.getAddress(getLoginUserId(), id);
@@ -59,14 +59,14 @@ public class AppAddressController {
     }
 
     @GetMapping("/get-default")
-    @Operation(summary = "获得默认的用户收件地址")
+    @Operation(summary = "Get the Default User Shipping Address")
     public CommonResult<AppAddressRespVO> getDefaultUserAddress() {
         MemberAddressDO address = addressService.getDefaultUserAddress(getLoginUserId());
         return success(AddressConvert.INSTANCE.convert(address));
     }
 
     @GetMapping("/list")
-    @Operation(summary = "获得用户收件地址列表")
+    @Operation(summary = "Get User Shipping Address List")
     public CommonResult<List<AppAddressRespVO>> getAddressList() {
         List<MemberAddressDO> list = addressService.getAddressList(getLoginUserId());
         return success(AddressConvert.INSTANCE.convertList(list));

@@ -21,7 +21,7 @@ import jakarta.validation.Valid;
 
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 
-@Tag(name = "管理后台 - 钱包余额明细")
+@Tag(name = "Management Backend - Wallet Balance Detail")
 @RestController
 @RequestMapping("/pay/wallet-transaction")
 @Validated
@@ -32,7 +32,7 @@ public class PayWalletTransactionController {
     private PayWalletTransactionService payWalletTransactionService;
 
     @GetMapping("/page")
-    @Operation(summary = "获得钱包流水分页")
+    @Operation(summary = "Get Wallet Transaction Records Pagination")
     @PreAuthorize("@ss.hasPermission('pay:wallet:query')")
     public CommonResult<PageResult<PayWalletTransactionRespVO>> getWalletTransactionPage(
             @Valid PayWalletTransactionPageReqVO pageReqVO) {

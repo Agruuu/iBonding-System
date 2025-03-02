@@ -24,7 +24,7 @@ import jakarta.validation.Valid;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
 import static com.ibonding.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
-@Tag(name = "管理后台 - 社交用户")
+@Tag(name = "Management Backend - Social User")
 @RestController
 @RequestMapping("/system/social-user")
 @Validated
@@ -34,7 +34,7 @@ public class SocialUserController {
     private SocialUserService socialUserService;
 
     @PostMapping("/bind")
-    @Operation(summary = "社交绑定，使用 code 授权码")
+    @Operation(summary = "Social binding, using the authorization code")
     public CommonResult<Boolean> socialBind(@RequestBody @Valid SocialUserBindReqVO reqVO) {
         socialUserService.bindSocialUser(SocialUserConvert.INSTANCE.convert(
                 getLoginUserId(), UserTypeEnum.ADMIN.getValue(), reqVO));
@@ -42,7 +42,7 @@ public class SocialUserController {
     }
 
     @DeleteMapping("/unbind")
-    @Operation(summary = "取消社交绑定")
+    @Operation(summary = "Social Unbinding")
     public CommonResult<Boolean> socialUnbind(@RequestBody SocialUserUnbindReqVO reqVO) {
         socialUserService.unbindSocialUser(getLoginUserId(), UserTypeEnum.ADMIN.getValue(), reqVO.getType(), reqVO.getOpenid());
         return CommonResult.success(true);
@@ -51,7 +51,7 @@ public class SocialUserController {
     // ==================== 社交用户 CRUD ====================
 
     @GetMapping("/get")
-    @Operation(summary = "获得社交用户")
+    @Operation(summary = "Get Social User")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     @PreAuthorize("@ss.hasPermission('system:social-user:query')")
     public CommonResult<SocialUserRespVO> getSocialUser(@RequestParam("id") Long id) {
@@ -60,7 +60,7 @@ public class SocialUserController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "获得社交用户分页")
+    @Operation(summary = "Get Social User Pagination")
     @PreAuthorize("@ss.hasPermission('system:social-user:query')")
     public CommonResult<PageResult<SocialUserRespVO>> getSocialUserPage(@Valid SocialUserPageReqVO pageVO) {
         PageResult<SocialUserDO> pageResult = socialUserService.getSocialUserPage(pageVO);
