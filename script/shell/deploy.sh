@@ -11,7 +11,7 @@ SERVER_NAME=ibonding-server
 # 环境
 PROFILES_ACTIVE=development
 # 健康检查 URL
-HEALTH_CHECK_URL=http://127.0.0.1:48080/actuator/health/
+HEALTH_CHECK_URL=http://43.165.1.254:48080/actuator/health/
 
 # heapError 存放路径
 HEAP_ERROR_PATH=$BASE_PATH/heapError

@@ -159,7 +159,7 @@ spring:
         endpoint: https://eastusprejade.openai.azure.com
         api-key: xxx
     ollama:
-      base-url: http://127.0.0.1:11434
+      base-url: http://43.165.1.254:11434
       chat:
         model: llama3
     stabilityai:
