@@ -48,7 +48,7 @@ public class ProjectReactor {
         String packageNameNew = "com.ibonding";
         String titleNew = "iBonding Management System";
 //        String projectBaseDirNew = projectBaseDir + "-new"; // 一键改名后，“新”项目所在的目录
-        String projectBaseDirNew = projectBaseDir.replace("ruoyi-vue-pro-master-jdk17", "iBonding-system"); // 一键改名后，“新”项目所在的目录", "ibonding-app");
+        String projectBaseDirNew = projectBaseDir.replace("iBonding", "iBonding-system"); // 一键改名后，“新”项目所在的目录", "ibonding-app");
         log.info("[main][检测新项目目录 ({})是否存在]", projectBaseDirNew);
         if (FileUtil.exist(projectBaseDirNew)) {
             log.error("[main][新项目目录检测 ({})已存在，请更改新的目录！程序退出]", projectBaseDirNew);

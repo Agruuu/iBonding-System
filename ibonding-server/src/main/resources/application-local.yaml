@@ -53,7 +53,7 @@ spring:
           #          url: jdbc:dm://127.0.0.1:5236?schema=iBonding-system # DM 连接的示例
           #          url: jdbc:kingbase8://127.0.0.1:54321/iBonding-system  # 人大金仓 KingbaseES 连接的示例
           #          url: jdbc:postgresql://127.0.0.1:5432/iBonding-system # OpenGauss 连接的示例
-          username: root
+          username: iBonding
           password: root1234
           #          username: sa # SQL Server 连接的示例
           #          password: Ibonding@2024 # SQL Server 连接的示例
@@ -64,7 +64,7 @@ spring:
         slave: # 模拟从库，可根据自己需要修改
           lazy: true # 开启懒加载，保证启动速度
           url: jdbc:mysql://127.0.0.1:3306/iBonding-system?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&nullCatalogMeansCurrent=true
-          username: root
+          username: iBonding
           password: root1234
 
   # Redis 配置。Redisson 默认的配置足够使用，一般不需要进行调优
