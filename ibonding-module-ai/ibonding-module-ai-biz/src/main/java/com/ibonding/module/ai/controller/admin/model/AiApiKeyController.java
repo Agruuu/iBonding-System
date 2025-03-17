@@ -6,9 +6,8 @@ import com.ibonding.framework.common.util.object.BeanUtils;
 import com.ibonding.module.ai.controller.admin.model.vo.apikey.AiApiKeyPageReqVO;
 import com.ibonding.module.ai.controller.admin.model.vo.apikey.AiApiKeyRespVO;
 import com.ibonding.module.ai.controller.admin.model.vo.apikey.AiApiKeySaveReqVO;
-import com.ibonding.module.ai.controller.admin.model.vo.chatModel.AiChatModelRespVO;
+import com.ibonding.module.ai.controller.admin.model.vo.model.AiModelRespVO;
 import com.ibonding.module.ai.dal.dataobject.model.AiApiKeyDO;
-import com.ibonding.module.ai.dal.dataobject.model.AiChatModelDO;
 import com.ibonding.module.ai.service.model.AiApiKeyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -76,9 +75,9 @@ public class AiApiKeyController {
 
     @GetMapping("/simple-list")
     @Operation(summary = "Get API Key Pagination List")
-    public CommonResult<List<AiChatModelRespVO>> getApiKeySimpleList() {
+    public CommonResult<List<AiModelRespVO>> getApiKeySimpleList() {
         List<AiApiKeyDO> list = apiKeyService.getApiKeyList();
-        return success(convertList(list, key -> new AiChatModelRespVO().setId(key.getId()).setName(key.getName())));
+        return success(convertList(list, key -> new AiModelRespVO().setId(key.getId()).setName(key.getName())));
     }
 
 }

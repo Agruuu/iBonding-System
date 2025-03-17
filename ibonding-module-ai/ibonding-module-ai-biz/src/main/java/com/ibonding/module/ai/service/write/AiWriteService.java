@@ -10,7 +10,7 @@ import reactor.core.publisher.Flux;
 /**
  * AI 写作 Service 接口
  *
- * @author xiaoxin
+ * @author Agaru
  */
 public interface AiWriteService {
 

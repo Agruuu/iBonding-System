@@ -1,9 +1,8 @@
 package com.ibonding.module.ai.dal.dataobject.chat;
 
 import com.ibonding.framework.mybatis.core.dataobject.BaseDO;
-import com.ibonding.module.ai.dal.dataobject.knowledge.AiKnowledgeDO;
-import com.ibonding.module.ai.dal.dataobject.model.AiChatModelDO;
 import com.ibonding.module.ai.dal.dataobject.model.AiChatRoleDO;
+import com.ibonding.module.ai.dal.dataobject.model.AiModelDO;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -17,12 +16,10 @@ import java.time.LocalDateTime;
  * 用户每次发起 Chat 聊天时，会创建一个 {@link AiChatConversationDO} 对象，将它的消息关联在一起
  *
  * @author Agaru
- * @since 2024/4/14 17:35
  */
 @TableName("ai_chat_conversation")
 @KeySequence("ai_chat_conversation_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
-@EqualsAndHashCode(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -66,20 +63,15 @@ public class AiChatConversationDO extends BaseDO {
     private Long roleId;
 
     /**
-     * 知识库编号
-     * <p>
-     * 关联 {@link AiKnowledgeDO#getId()}
-     */
-    private Long knowledgeId;
-
-    /**
      * 模型编号
      *
-     * 关联 {@link AiChatModelDO#getId()} 字段
+     * 关联 {@link AiModelDO#getId()} 字段
      */
     private Long modelId;
     /**
      * 模型标志
+     *
+     * 冗余 {@link AiModelDO#getModel()} 字段
      */
     private String model;
 

@@ -1,8 +1,9 @@
 package com.ibonding.module.ai.service.write;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
+import com.ibonding.framework.ai.core.enums.AiModelTypeEnum;
 import com.ibonding.framework.ai.core.enums.AiPlatformEnum;
 import com.ibonding.framework.ai.core.util.AiUtils;
 import com.ibonding.framework.common.pojo.CommonResult;
@@ -10,17 +11,16 @@ import com.ibonding.framework.common.pojo.PageResult;
 import com.ibonding.framework.common.util.object.BeanUtils;
 import com.ibonding.module.ai.controller.admin.write.vo.AiWriteGenerateReqVO;
 import com.ibonding.module.ai.controller.admin.write.vo.AiWritePageReqVO;
-import com.ibonding.module.ai.dal.dataobject.model.AiChatModelDO;
 import com.ibonding.module.ai.dal.dataobject.model.AiChatRoleDO;
+import com.ibonding.module.ai.dal.dataobject.model.AiModelDO;
 import com.ibonding.module.ai.dal.dataobject.write.AiWriteDO;
 import com.ibonding.module.ai.dal.mysql.write.AiWriteMapper;
 import com.ibonding.module.ai.enums.AiChatRoleEnum;
 import com.ibonding.module.ai.enums.DictTypeConstants;
 import com.ibonding.module.ai.enums.ErrorCodeConstants;
 import com.ibonding.module.ai.enums.write.AiWriteTypeEnum;
-import com.ibonding.module.ai.service.model.AiApiKeyService;
-import com.ibonding.module.ai.service.model.AiChatModelService;
 import com.ibonding.module.ai.service.model.AiChatRoleService;
+import com.ibonding.module.ai.service.model.AiModelService;
 import com.ibonding.module.system.api.dict.DictDataApi;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -41,29 +41,27 @@ import java.util.Objects;
 import static com.ibonding.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static com.ibonding.framework.common.pojo.CommonResult.error;
 import static com.ibonding.framework.common.pojo.CommonResult.success;
-import static com.ibonding.module.ai.enums.ErrorCodeConstants.WRITE_NOT_EXISTS;
+import static com.ibonding.module.ai.enums.ErrorCodeConstants.*;
 
 /**
  * AI 写作 Service 实现类
  *
- * @author xiaoxin
+ * @author Agaru
  */
 @Service
 @Slf4j
 public class AiWriteServiceImpl implements AiWriteService {
 
     @Resource
-    private AiApiKeyService apiKeyService;
-    @Resource
-    private AiChatModelService chatModalService;
+    private AiModelService modalService;
     @Resource
     private AiChatRoleService chatRoleService;
 
     @Resource
-    private DictDataApi dictDataApi;
+    private AiWriteMapper writeMapper;
 
     @Resource
-    private AiWriteMapper writeMapper;
+    private DictDataApi dictDataApi;
 
     @Override
     public Flux<CommonResult<String>> generateWriteContent(AiWriteGenerateReqVO generateReqVO, Long userId) {
@@ -71,17 +69,17 @@ public class AiWriteServiceImpl implements AiWriteService {
         AiChatRoleDO writeRole = CollUtil.getFirst(
                 chatRoleService.getChatRoleListByName(AiChatRoleEnum.AI_WRITE_ROLE.getName()));
         // 1.1 获取写作执行模型
-        AiChatModelDO model = getModel(writeRole);
+        AiModelDO model = getModel(writeRole);
         // 1.2 获取角色设定消息
         String systemMessage = Objects.nonNull(writeRole) && StrUtil.isNotBlank(writeRole.getSystemMessage())
                 ? writeRole.getSystemMessage() : AiChatRoleEnum.AI_WRITE_ROLE.getSystemMessage();
         // 1.3 校验平台
         AiPlatformEnum platform = AiPlatformEnum.validatePlatform(model.getPlatform());
-        StreamingChatModel chatModel = apiKeyService.getChatModel(model.getKeyId());
+        StreamingChatModel chatModel = modalService.getChatModel(model.getKeyId());
 
         // 2. 插入写作信息
-        AiWriteDO writeDO = BeanUtils.toBean(generateReqVO, AiWriteDO.class,
-                write -> write.setUserId(userId).setPlatform(platform.getPlatform()).setModel(model.getModel()));
+        AiWriteDO writeDO = BeanUtils.toBean(generateReqVO, AiWriteDO.class, write -> write.setUserId(userId)
+                        .setPlatform(platform.getPlatform()).setModelId(model.getId()).setModel(model.getModel()));
         writeMapper.insert(writeDO);
 
         // 3.1 构建 Prompt，并进行调用
@@ -91,32 +89,40 @@ public class AiWriteServiceImpl implements AiWriteService {
         // 3.2 流式返回
         StringBuffer contentBuffer = new StringBuffer();
         return streamResponse.map(chunk -> {
-            String newContent = chunk.getResult() != null ? chunk.getResult().getOutput().getContent() : null;
+            String newContent = chunk.getResult() != null ? chunk.getResult().getOutput().getText() : null;
             newContent = StrUtil.nullToDefault(newContent, ""); // 避免 null 的 情况
             contentBuffer.append(newContent);
             // 响应结果
             return success(newContent);
         }).doOnComplete(() -> {
+            // 忽略租户，因为 Flux 异步无法透传租户
             writeMapper.updateById(new AiWriteDO().setId(writeDO.getId()).setGeneratedContent(contentBuffer.toString()));
         }).doOnError(throwable -> {
             log.error("[generateWriteContent][generateReqVO({}) 发生异常]", generateReqVO, throwable);
+            // 忽略租户，因为 Flux 异步无法透传租户
             writeMapper.updateById(new AiWriteDO().setId(writeDO.getId()).setErrorMessage(throwable.getMessage()));
         }).onErrorResume(error -> Flux.just(error(ErrorCodeConstants.WRITE_STREAM_ERROR)));
     }
 
-    private AiChatModelDO getModel(AiChatRoleDO writeRole) {
-        AiChatModelDO model = null;
+    private AiModelDO getModel(AiChatRoleDO writeRole) {
+        AiModelDO model = null;
         if (Objects.nonNull(writeRole) && Objects.nonNull(writeRole.getModelId())) {
-            model = chatModalService.getChatModel(writeRole.getModelId());
+            model = modalService.getModel(writeRole.getModelId());
         }
         if (model == null) {
-            model = chatModalService.getRequiredDefaultChatModel();
+            model = modalService.getRequiredDefaultModel(AiModelTypeEnum.CHAT.getType());
         }
-        Assert.notNull(model, "[AI] 获取不到模型");
+        // 校验模型存在、且合法
+        if (model == null) {
+            throw exception(MODEL_NOT_EXISTS);
+        }
+        if (ObjUtil.notEqual(model.getType(), AiModelTypeEnum.CHAT.getType())) {
+            throw exception(MODEL_USE_TYPE_ERROR);
+        }
         return model;
     }
 
-    private Prompt buildPrompt(AiWriteGenerateReqVO generateReqVO, AiChatModelDO model, String systemMessage) {
+    private Prompt buildPrompt(AiWriteGenerateReqVO generateReqVO, AiModelDO model, String systemMessage) {
         // 1. 构建 message 列表
         List<Message> chatMessages = buildMessages(generateReqVO, systemMessage);
         // 2. 构建 options 对象

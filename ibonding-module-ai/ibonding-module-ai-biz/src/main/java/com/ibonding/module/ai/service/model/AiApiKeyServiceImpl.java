@@ -1,9 +1,5 @@
 package com.ibonding.module.ai.service.model;
 
-import com.ibonding.framework.ai.core.enums.AiPlatformEnum;
-import com.ibonding.framework.ai.core.factory.AiModelFactory;
-import com.ibonding.framework.ai.core.model.midjourney.api.MidjourneyApi;
-import com.ibonding.framework.ai.core.model.suno.api.SunoApi;
 import com.ibonding.framework.common.enums.CommonStatusEnum;
 import com.ibonding.framework.common.pojo.PageResult;
 import com.ibonding.framework.common.util.object.BeanUtils;
@@ -12,17 +8,14 @@ import com.ibonding.module.ai.controller.admin.model.vo.apikey.AiApiKeySaveReqVO
 import com.ibonding.module.ai.dal.dataobject.model.AiApiKeyDO;
 import com.ibonding.module.ai.dal.mysql.model.AiApiKeyMapper;
 import jakarta.annotation.Resource;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.embedding.EmbeddingModel;
-import org.springframework.ai.image.ImageModel;
-import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
 import static com.ibonding.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static com.ibonding.module.ai.enums.ErrorCodeConstants.*;
+import static com.ibonding.module.ai.enums.ErrorCodeConstants.API_KEY_DISABLE;
+import static com.ibonding.module.ai.enums.ErrorCodeConstants.API_KEY_NOT_EXISTS;
 
 /**
  * AI API 密钥 Service 实现类
@@ -35,9 +28,6 @@ public class AiApiKeyServiceImpl implements AiApiKeyService {
 
     @Resource
     private AiApiKeyMapper apiKeyMapper;
-
-    @Resource
-    private AiModelFactory modelFactory;
 
     @Override
     public Long createApiKey(AiApiKeySaveReqVO createReqVO) {
@@ -97,57 +87,13 @@ public class AiApiKeyServiceImpl implements AiApiKeyService {
         return apiKeyMapper.selectList();
     }
 
-    // ========== 与 spring-ai 集成 ==========
-
     @Override
-    public ChatModel getChatModel(Long id) {
-        AiApiKeyDO apiKey = validateApiKey(id);
-        AiPlatformEnum platform = AiPlatformEnum.validatePlatform(apiKey.getPlatform());
-        return modelFactory.getOrCreateChatModel(platform, apiKey.getApiKey(), apiKey.getUrl());
-    }
-
-    @Override
-    public ImageModel getImageModel(AiPlatformEnum platform) {
-        AiApiKeyDO apiKey = apiKeyMapper.selectFirstByPlatformAndStatus(platform.getPlatform(), CommonStatusEnum.ENABLE.getStatus());
+    public AiApiKeyDO getRequiredDefaultApiKey(String platform, Integer status) {
+        AiApiKeyDO apiKey = apiKeyMapper.selectFirstByPlatformAndStatus(platform, status);
         if (apiKey == null) {
-            throw exception(API_KEY_IMAGE_NODE_FOUND, platform.getName());
+            throw exception(API_KEY_NOT_EXISTS);
         }
-        return modelFactory.getOrCreateImageModel(platform, apiKey.getApiKey(), apiKey.getUrl());
-    }
-
-    @Override
-    public MidjourneyApi getMidjourneyApi() {
-        AiApiKeyDO apiKey = apiKeyMapper.selectFirstByPlatformAndStatus(
-                AiPlatformEnum.MIDJOURNEY.getPlatform(), CommonStatusEnum.ENABLE.getStatus());
-        if (apiKey == null) {
-            throw exception(API_KEY_MIDJOURNEY_NOT_FOUND);
-        }
-        return modelFactory.getOrCreateMidjourneyApi(apiKey.getApiKey(), apiKey.getUrl());
-    }
-
-    @Override
-    public SunoApi getSunoApi() {
-        AiApiKeyDO apiKey = apiKeyMapper.selectFirstByPlatformAndStatus(
-                AiPlatformEnum.SUNO.getPlatform(), CommonStatusEnum.ENABLE.getStatus());
-        if (apiKey == null) {
-            throw exception(API_KEY_SUNO_NOT_FOUND);
-        }
-        return modelFactory.getOrCreateSunoApi(apiKey.getApiKey(), apiKey.getUrl());
-    }
-
-    @Override
-    public EmbeddingModel getEmbeddingModel(Long id) {
-        AiApiKeyDO apiKey = validateApiKey(id);
-        AiPlatformEnum platform = AiPlatformEnum.validatePlatform(apiKey.getPlatform());
-        return modelFactory.getOrCreateEmbeddingModel(platform, apiKey.getApiKey(), apiKey.getUrl());
-    }
-
-    @Override
-    public VectorStore getOrCreateVectorStore(Long id) {
-        AiApiKeyDO apiKey = validateApiKey(id);
-        AiPlatformEnum platform = AiPlatformEnum.validatePlatform(apiKey.getPlatform());
-        // 创建或获取 VectorStore 对象
-        return modelFactory.getOrCreateVectorStore(getEmbeddingModel(id), platform, apiKey.getApiKey(), apiKey.getUrl());
+        return apiKey;
     }
 
 }

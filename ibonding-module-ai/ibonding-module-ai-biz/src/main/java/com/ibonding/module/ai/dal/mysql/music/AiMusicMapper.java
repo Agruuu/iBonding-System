@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * AI 音乐 Mapper
  *
- * @author xiaoxin
+ * @author Agaru
  */
 @Mapper
 public interface AiMusicMapper extends BaseMapperX<AiMusicDO> {

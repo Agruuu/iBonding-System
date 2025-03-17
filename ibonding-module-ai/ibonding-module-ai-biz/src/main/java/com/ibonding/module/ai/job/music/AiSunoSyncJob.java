@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * 同步 Suno 任务状态以及回写对应的音乐信息 Job
  *
- * @author xiaoxin
+ * @author Agaru
  */
 @Component
 @Slf4j

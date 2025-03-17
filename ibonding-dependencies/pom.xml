@@ -53,14 +53,14 @@
         <mapstruct.version>1.6.3</mapstruct.version>
         <hutool-5.version>5.8.35</hutool-5.version>
         <hutool-6.version>6.0.0-M19</hutool-6.version>
-        <easyexcel.verion>4.0.3</easyexcel.verion>
+        <easyexcel.version>4.0.3</easyexcel.version>
         <velocity.version>2.4.1</velocity.version>
         <fastjson.version>1.2.83</fastjson.version>
         <guava.version>33.4.0-jre</guava.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
         <commons-net.version>3.11.1</commons-net.version>
         <jsch.version>0.1.55</jsch.version>
-        <tika-core.version>2.9.2</tika-core.version>
+        <tika-core.version>3.1.0</tika-core.version>
         <ip2region.version>2.7.0</ip2region.version>
         <bizlog-sdk.version>3.0.6</bizlog-sdk.version>
         <netty.version>4.1.116.Final</netty.version>
@@ -71,7 +71,7 @@
         <aws-java-sdk-s3.version>1.12.777</aws-java-sdk-s3.version>
         <justauth.version>2.0.5</justauth.version>
         <jimureport.version>1.8.1</jimureport.version>
-        <weixin-java.version>4.6.0</weixin-java.version>
+        <weixin-java.version>4.7.2.B</weixin-java.version>
     </properties>
 
     <dependencyManagement>
@@ -466,7 +466,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>easyexcel</artifactId>
-                <version>${easyexcel.verion}</version>
+                <version>${easyexcel.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>

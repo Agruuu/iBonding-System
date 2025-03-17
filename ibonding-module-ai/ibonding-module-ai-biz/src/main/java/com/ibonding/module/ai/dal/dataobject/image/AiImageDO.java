@@ -2,7 +2,7 @@ package com.ibonding.module.ai.dal.dataobject.image;
 
 import com.ibonding.framework.ai.core.model.midjourney.api.MidjourneyApi;
 import com.ibonding.framework.mybatis.core.dataobject.BaseDO;
-import com.ibonding.module.ai.dal.dataobject.model.AiChatModelDO;
+import com.ibonding.module.ai.dal.dataobject.model.AiModelDO;
 import com.ibonding.module.ai.enums.image.AiImageStatusEnum;
 import com.ibonding.module.system.api.user.dto.AdminUserRespDTO;
 import com.baomidou.mybatisplus.annotation.KeySequence;
@@ -53,9 +53,15 @@ public class AiImageDO extends BaseDO {
      */
     private String platform;
     /**
-     * 模型
+     * 模型编号
      *
-     * 冗余 {@link AiChatModelDO#getModel()}
+     * 关联 {@link AiModelDO#getId()}
+     */
+    private Long modelId;
+    /**
+     * 模型标识
+     *
+     * 冗余 {@link AiModelDO#getModel()}
      */
     private String model;
 

@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * AI 思维导图 Mapper
  *
- * @author xiaoxin
+ * @author Agaru
  */
 @Mapper
 public interface AiMindMapMapper extends BaseMapperX<AiMindMapDO> {

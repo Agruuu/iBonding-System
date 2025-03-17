@@ -1,16 +1,16 @@
 package com.ibonding.module.ai.service.knowledge;
 
 import com.ibonding.framework.common.pojo.PageResult;
-import com.ibonding.module.ai.controller.admin.knowledge.vo.knowledge.AiKnowledgeCreateReqVO;
 import com.ibonding.module.ai.controller.admin.knowledge.vo.knowledge.AiKnowledgePageReqVO;
-import com.ibonding.module.ai.controller.admin.knowledge.vo.knowledge.AiKnowledgeUpdateReqVO;
+import com.ibonding.module.ai.controller.admin.knowledge.vo.knowledge.AiKnowledgeSaveReqVO;
 import com.ibonding.module.ai.dal.dataobject.knowledge.AiKnowledgeDO;
-import org.springframework.ai.vectorstore.VectorStore;
+
+import java.util.List;
 
 /**
  * AI 知识库-基础信息 Service 接口
  *
- * @author xiaoxin
+ * @author Agaru
  */
 public interface AiKnowledgeService {
 
@@ -18,18 +18,24 @@ public interface AiKnowledgeService {
      * 创建知识库
      *
      * @param createReqVO 创建信息
-     * @param userId      用户编号
      * @return 编号
      */
-    Long createKnowledge(AiKnowledgeCreateReqVO createReqVO, Long userId);
+    Long createKnowledge(AiKnowledgeSaveReqVO createReqVO);
 
     /**
      * 更新知识库
      *
      * @param updateReqVO 更新信息
-     * @param userId      用户编号
      */
-    void updateKnowledge(AiKnowledgeUpdateReqVO updateReqVO, Long userId);
+    void updateKnowledge(AiKnowledgeSaveReqVO updateReqVO);
+
+    /**
+     * 获得知识库
+     *
+     * @param id 编号
+     * @return 知识库
+     */
+    AiKnowledgeDO getKnowledge(Long id);
 
     /**
      * 校验知识库是否存在
@@ -41,18 +47,17 @@ public interface AiKnowledgeService {
     /**
      * 获得知识库分页
      *
-     * @param userId    用户编号
      * @param pageReqVO 分页查询
      * @return 知识库分页
      */
-    PageResult<AiKnowledgeDO> getKnowledgePage(Long userId, AiKnowledgePageReqVO pageReqVO);
+    PageResult<AiKnowledgeDO> getKnowledgePage(AiKnowledgePageReqVO pageReqVO);
 
     /**
-     * 根据知识库编号获取向量存储实例
+     * 获得指定状态的知识库列表
      *
-     * @param id 知识库编号
-     * @return 向量存储实例
+     * @param status 状态
+     * @return 知识库列表
      */
-    VectorStore getVectorStoreById(Long id);
+    List<AiKnowledgeDO> getKnowledgeSimpleListByStatus(Integer status);
 
 }

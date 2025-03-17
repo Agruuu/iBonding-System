@@ -34,8 +34,6 @@ The system has built-in various business functions, which can be used to quickly
 | 🚀 | Menu Management        | Configure system menus, operation permissions, button permission identifiers, etc. Local cache provides performance.       |
 | 🚀 | Department Management  | Configure system organization (company, department, group), tree structure display supports data permissions.              |
 | 🚀 | Position Management    | Configure the system user's position.                                                                                      |
-| 🚀 | Tenant Management      | Configure system tenants to support multi-tenancy in SaaS scenarios.                                                       |
-| 🚀 | Tenant Packages        | Configure tenant packages and customize the menus, operations, and button permissions for each tenant.                     |
 | 🚀 | Dictionary Management  | Maintain some relatively fixed data that is frequently used in the system.                                                 |
 | 🚀 | SMS management         | SMS channels, SMS templates, SMS logs, and connection to mainstream SMS platforms such as Alibaba Cloud and Tencent Cloud. |
 | 🚀 | Email Management       | Email account, email template, email sending log, support all email platforms.                                             |
