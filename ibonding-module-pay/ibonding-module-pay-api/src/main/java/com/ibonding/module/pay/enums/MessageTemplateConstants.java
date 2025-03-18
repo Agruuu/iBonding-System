@@ -3,7 +3,7 @@ package com.ibonding.module.pay.enums;
 /**
  * 通知模板枚举类
  *
- * @author HUIHUI
+ * @author Agaru
  */
 public interface MessageTemplateConstants {
 

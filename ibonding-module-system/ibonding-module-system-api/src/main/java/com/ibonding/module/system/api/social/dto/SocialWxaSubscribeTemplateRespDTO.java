@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 小程序订阅消息模版 Response DTO
  *
- * @author HUIHUI
+ * @author Agaru
  */
 @Data
 public class SocialWxaSubscribeTemplateRespDTO {

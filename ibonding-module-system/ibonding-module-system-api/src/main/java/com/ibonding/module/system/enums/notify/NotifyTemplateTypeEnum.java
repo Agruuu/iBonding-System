@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * 通知模板类型枚举
  *
- * @author HUIHUI
+ * @author Agaru
  */
 @Getter
 @AllArgsConstructor

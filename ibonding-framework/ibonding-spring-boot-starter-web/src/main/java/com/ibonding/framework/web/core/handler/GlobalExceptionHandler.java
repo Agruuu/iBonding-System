@@ -1,5 +1,6 @@
 package com.ibonding.framework.web.core.handler;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ObjUtil;
@@ -27,6 +28,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -37,6 +39,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -135,9 +138,23 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public CommonResult<?> methodArgumentNotValidExceptionExceptionHandler(MethodArgumentNotValidException ex) {
         log.warn("[methodArgumentNotValidExceptionExceptionHandler]", ex);
+        // 获取 errorMessage
+        String errorMessage = null;
         FieldError fieldError = ex.getBindingResult().getFieldError();
-        assert fieldError != null; // 断言，避免告警
-        return CommonResult.error(BAD_REQUEST.getCode(), String.format("请求参数不正确:%s", fieldError.getDefaultMessage()));
+        if (fieldError == null) {
+            // 组合校验，参考自 https://t.zsxq.com/3HVTx
+            List<ObjectError> allErrors = ex.getBindingResult().getAllErrors();
+            if (CollUtil.isNotEmpty(allErrors)) {
+                errorMessage = allErrors.get(0).getDefaultMessage();
+            }
+        } else {
+            errorMessage = fieldError.getDefaultMessage();
+        }
+        // 转换 CommonResult
+        if (StrUtil.isEmpty(errorMessage)) {
+            return CommonResult.error(BAD_REQUEST);
+        }
+        return CommonResult.error(BAD_REQUEST.getCode(), String.format("请求参数不正确:%s", errorMessage));
     }
 
     /**
@@ -332,57 +349,21 @@ public class GlobalExceptionHandler {
         }
         // 1. 数据报表
         if (message.contains("report_")) {
-            log.error("[报表模块 ibonding-module-report - 表结构未导入][参考 https://cloud.iocoder.cn/report/ 开启]");
+            log.error("[Report ibonding-module-report - 表结构未导入]");
             return CommonResult.error(NOT_IMPLEMENTED.getCode(),
-                    "[报表模块 ibonding-module-report - 表结构未导入][参考 https://cloud.iocoder.cn/report/ 开启]");
+                    "[Report ibonding-module-report - 表结构未导入]");
         }
-        // 2. 工作流
-        if (message.contains("bpm_")) {
-            log.error("[工作流模块 ibonding-module-bpm - 表结构未导入][参考 https://cloud.iocoder.cn/bpm/ 开启]");
-            return CommonResult.error(NOT_IMPLEMENTED.getCode(),
-                    "[工作流模块 ibonding-module-bpm - 表结构未导入][参考 https://cloud.iocoder.cn/bpm/ 开启]");
-        }
-        // 3. 微信公众号
-        if (message.contains("mp_")) {
-            log.error("[微信公众号 ibonding-module-mp - 表结构未导入][参考 https://cloud.iocoder.cn/mp/build/ 开启]");
-            return CommonResult.error(NOT_IMPLEMENTED.getCode(),
-                    "[微信公众号 ibonding-module-mp - 表结构未导入][参考 https://cloud.iocoder.cn/mp/build/ 开启]");
-        }
-        // 4. 商城系统
-        if (StrUtil.containsAny(message, "product_", "promotion_", "trade_")) {
-            log.error("[商城系统 ibonding-module-mall - 已禁用][参考 https://cloud.iocoder.cn/mall/build/ 开启]");
-            return CommonResult.error(NOT_IMPLEMENTED.getCode(),
-                    "[商城系统 ibonding-module-mall - 已禁用][参考 https://cloud.iocoder.cn/mall/build/ 开启]");
-        }
-        // 5. ERP 系统
-        if (message.contains("erp_")) {
-            log.error("[ERP 系统 ibonding-module-erp - 表结构未导入][参考 https://cloud.iocoder.cn/erp/build/ 开启]");
-            return CommonResult.error(NOT_IMPLEMENTED.getCode(),
-                    "[ERP 系统 ibonding-module-erp - 表结构未导入][参考 https://cloud.iocoder.cn/erp/build/ 开启]");
-        }
-        // 6. CRM 系统
-        if (message.contains("crm_")) {
-            log.error("[CRM 系统 ibonding-module-crm - 表结构未导入][参考 https://cloud.iocoder.cn/crm/build/ 开启]");
-            return CommonResult.error(NOT_IMPLEMENTED.getCode(),
-                    "[CRM 系统 ibonding-module-crm - 表结构未导入][参考 https://cloud.iocoder.cn/crm/build/ 开启]");
-        }
-        // 7. 支付平台
+        // 2. 支付平台
         if (message.contains("pay_")) {
-            log.error("[支付模块 ibonding-module-pay - 表结构未导入][参考 https://cloud.iocoder.cn/pay/build/ 开启]");
+            log.error("[Payment ibonding-module-pay - 表结构未导入]");
             return CommonResult.error(NOT_IMPLEMENTED.getCode(),
-                    "[支付模块 ibonding-module-pay - 表结构未导入][参考 https://cloud.iocoder.cn/pay/build/ 开启]");
+                    "[Payment ibonding-module-pay - 表结构未导入]");
         }
-        // 8. AI 大模型
+        // 3. AI 大模型
         if (message.contains("ai_")) {
-            log.error("[AI 大模型 ibonding-module-ai - 表结构未导入][参考 https://cloud.iocoder.cn/ai/build/ 开启]");
+            log.error("[AI Model ibonding-module-ai - 表结构未导入]");
             return CommonResult.error(NOT_IMPLEMENTED.getCode(),
-                    "[AI 大模型 ibonding-module-ai - 表结构未导入][参考 https://cloud.iocoder.cn/ai/build/ 开启]");
-        }
-        // 9. IOT 物联网
-        if (message.contains("iot_")) {
-            log.error("[IOT 物联网 ibonding-module-iot - 表结构未导入][参考 https://doc.iocoder.cn/iot/build/ 开启]");
-            return CommonResult.error(NOT_IMPLEMENTED.getCode(),
-                    "[IOT 物联网 ibonding-module-iot - 表结构未导入][参考 https://doc.iocoder.cn/iot/build/ 开启]");
+                    "[AI Model ibonding-module-ai - 表结构未导入]");
         }
         return null;
     }

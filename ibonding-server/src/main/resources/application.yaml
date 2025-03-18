@@ -182,7 +182,7 @@ ibonding:
   ai:
     deep-seek: # DeepSeek
       enable: true
-      api-key: sk-e94db327cc7d457d99a8de8810fc6b12
+      api-key: sk-493d4783d4c248fb9e4672c594d3361e
       model: deepseek-chat
     doubao: # 字节豆包
       enable: true
@@ -337,3 +337,6 @@ ibonding:
         customer: E77DF18BE109F454A5CD319E44BF5177
 
 debug: false
+# 插件配置 TODO Agaru：【IOT】需要处理下
+pf4j:
+  pluginsDir: /Users/anhaohao/code/gitee/ruoyi-vue-pro/plugins # 插件目录

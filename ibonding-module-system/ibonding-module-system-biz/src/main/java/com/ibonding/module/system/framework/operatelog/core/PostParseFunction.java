@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  * 岗位名字的 {@link IParseFunction} 实现类
  *
- * @author HUIHUI
+ * @author Agaru
  */
 @Slf4j
 @Component

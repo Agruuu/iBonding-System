@@ -2,6 +2,7 @@ package com.ibonding.module.system.service.permission;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjUtil;
+import cn.hutool.core.util.StrUtil;
 import com.ibonding.framework.common.enums.CommonStatusEnum;
 import com.ibonding.framework.common.util.object.BeanUtils;
 import com.ibonding.module.system.controller.admin.permission.vo.menu.MenuListReqVO;
@@ -49,7 +50,8 @@ public class MenuServiceImpl implements MenuService {
         // 校验父菜单存在
         validateParentMenu(createReqVO.getParentId(), null);
         // 校验菜单（自己）
-        validateMenu(createReqVO.getParentId(), createReqVO.getName(), null);
+        validateMenuName(createReqVO.getParentId(), createReqVO.getName(), null);
+        validateMenuComponentName(createReqVO.getComponentName(), null);
 
         // 插入数据库
         MenuDO menu = BeanUtils.toBean(createReqVO, MenuDO.class);
@@ -70,7 +72,8 @@ public class MenuServiceImpl implements MenuService {
         // 校验父菜单存在
         validateParentMenu(updateReqVO.getParentId(), updateReqVO.getId());
         // 校验菜单（自己）
-        validateMenu(updateReqVO.getParentId(), updateReqVO.getName(), updateReqVO.getId());
+        validateMenuName(updateReqVO.getParentId(), updateReqVO.getName(), updateReqVO.getId());
+        validateMenuComponentName(updateReqVO.getComponentName(), updateReqVO.getId());
 
         // 更新到数据库
         MenuDO updateObj = BeanUtils.toBean(updateReqVO, MenuDO.class);
@@ -224,7 +227,7 @@ public class MenuServiceImpl implements MenuService {
      * @param id       菜单编号
      */
     @VisibleForTesting
-    void validateMenu(Long parentId, String name, Long id) {
+    void validateMenuName(Long parentId, String name, Long id) {
         MenuDO menu = menuMapper.selectByParentIdAndName(parentId, name);
         if (menu == null) {
             return;
@@ -235,6 +238,30 @@ public class MenuServiceImpl implements MenuService {
         }
         if (!menu.getId().equals(id)) {
             throw exception(MENU_NAME_DUPLICATE);
+        }
+    }
+
+    /**
+     * 校验菜单组件名是否合法
+     *
+     * @param componentName 组件名
+     * @param id            菜单编号
+     */
+    @VisibleForTesting
+    void validateMenuComponentName(String componentName, Long id) {
+        if (StrUtil.isBlank(componentName)) {
+            return;
+        }
+        MenuDO menu = menuMapper.selectByComponentName(componentName);
+        if (menu == null) {
+            return;
+        }
+        // 如果 id 为空，说明不用比较是否为相同 id 的菜单
+        if (id == null) {
+            return;
+        }
+        if (!menu.getId().equals(id)) {
+            throw exception(MENU_COMPONENT_NAME_DUPLICATE);
         }
     }
 

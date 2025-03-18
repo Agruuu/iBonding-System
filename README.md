@@ -102,11 +102,11 @@ Supported AI models: DeepSeek, ChatGPT, LLAMA, Gemini, Stable Diffusion, Midjour
 | [Hibernate Validator](https://github.com/hibernate/hibernate-validator)                     | Parameter verification component            | 8.0.1          |
 | [Flowable](https://github.com/flowable/flowable-engine)                                     | Workflow Engine                             | 7.0.0          |
 | [Quartz](https://github.com/quartz-scheduler)                                               | Task Scheduling Component                   | 2.3.2          |
-| [Springdoc](https://springdoc.org/)                                                         | Swagger document                            | 2.7.0          |
+| [Springdoc](https://springdoc.org/)                                                         | Swagger document                            | 2.3.0          |
 | [SkyWalking](https://skywalking.apache.org/)                                                | Distributed Application Tracing System      | 9.0.0          |
 | [Spring Boot Admin](https://github.com/codecentric/spring-boot-admin)                       | Spring Boot Monitoring Platform             | 3.3.2          |
 | [Jackson](https://github.com/FasterXML/jackson)                                             | JSON Toolkit                                | 2.17.1         |
 | [MapStruct](https://mapstruct.org/)                                                         | Java Bean Conversion                        | 1.6.3          |
 | [Lombok](https://projectlombok.org/)                                                        | Eliminate verbose Java code                 | 1.18.34        |
 | [JUnit](https://junit.org/junit5/)                                                          | Java Unit Testing Framework                 | 5.10.1         |
-| [Mockito](https://github.com/mockito/mockito)                                               | Java Mock Framework.                        | 5.2.0          |
+| [Mockito](https://github.com/mockito/mockito)                                               | Java Mock Framework.                        | 5.7.0          |

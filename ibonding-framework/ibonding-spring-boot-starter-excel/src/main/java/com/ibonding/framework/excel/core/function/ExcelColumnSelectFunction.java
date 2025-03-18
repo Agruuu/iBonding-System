@@ -7,7 +7,7 @@ import java.util.List;
  *
  * 为什么不直接解析字典还搞个接口？考虑到有的下拉数据不是从字典中获取的所有需要做一个兼容
 
- * @author HUIHUI
+ * @author Agaru
  */
 public interface ExcelColumnSelectFunction {
 
